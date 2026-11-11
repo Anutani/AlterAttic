@@ -1,6 +1,6 @@
 // Renders src/index.html in a headless browser and saves the finished HTML to
 // public/index.html, so search engines and AI tools see the full page text
-// (portfolio, chapters and prices) without running JavaScript.
+// (portfolio and chapters) without running JavaScript.
 // Usage: node scripts/prerender.js   (needs Playwright with Chromium)
 const path = require("path");
 const fs = require("fs");
