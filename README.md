@@ -13,7 +13,15 @@ The website for AlterAttic, Anutani Pegu's video editing studio, at [alterattic.
 
 In `src/index.html`, set `CONFIG.whatsapp` (country code and number, digits only, for example `919876543210`) and `CONFIG.email`. Replace the placeholder work tiles, projects and prices with real ones.
 
-## Build and deploy
+## Deploy on Vercel (same as AlterAttic Dental)
+
+1. In Vercel, Add New → Project → import `Anutani/AlterAttic`. `vercel.json` already sets the output folder to `public`, so click Deploy.
+2. Open the preview link Vercel gives you and check the page.
+3. Settings → Domains → add `alterattic.in` and follow Vercel's DNS steps at your domain registrar. The old site stays live until the DNS change.
+
+After editing `src/index.html`, run `node scripts/prerender.js` and commit `public/index.html`.
+
+## Build and deploy on Firebase (alternative)
 
 ```
 npm install -g firebase-tools playwright
