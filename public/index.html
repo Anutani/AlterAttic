@@ -225,6 +225,13 @@ body.lock{overflow:hidden}
 
 /* results */
 .tgrid{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.tgrid .tq:only-child{padding:clamp(28px,4vw,48px)}.tgrid .tq:only-child blockquote{font-size:clamp(18px,1.9vw,24px);line-height:1.55;color:var(--fg);max-width:60ch}
+.chs{margin-top:clamp(40px,5vw,64px);padding-top:24px;border-top:1px solid rgb(13 13 13 / .1);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.chl{font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(13 13 13 / .5)}
+.chr{display:flex;flex-wrap:wrap;gap:16px 36px}
+.chr a{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:15px;transition:color .2s}
+.chr a:hover{color:var(--or)}
+.chr img{width:44px;height:44px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px rgb(13 13 13 / .08)}
 .tq{display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:20px;background:#fff;box-shadow:0 0 0 1px rgb(13 13 13 / .06),0 24px 48px -32px rgb(0 0 0 / .3)}
 .tq .big{font-family:var(--disp);font-weight:800;font-size:40px;letter-spacing:-.03em;line-height:1;color:var(--or)}
 .tq .big small{font-size:16px;font-weight:500;color:var(--mute);margin-left:6px;letter-spacing:0}
@@ -528,10 +535,18 @@ body.lock{overflow:hidden}
 
 <!-- FOOTER -->
 <!-- TESTIMONIALS (shown once real quotes are added in QUOTES) -->
-<section class="res" id="reviews" hidden="">
+<section class="res" id="reviews">
   <div class="wrap">
     <div class="hd"><div><span class="ey reveal">Client words</span><h2 class="reveal">What clients <i>say.</i></h2></div></div>
-    <div class="tgrid" id="quotes"></div>
+    <div class="tgrid" id="quotes"><figure class="tq reveal"><blockquote>“I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.”</blockquote><figcaption><a href="https://www.youtube.com/@SaabUnleashed" target="_blank" rel="noopener"><div class="who"><img src="img/clients/saab-unleashed.jpg" alt="" loading="lazy"><div><b>Stuart</b><span>Saab Unleashed</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure></div>
+    <div class="chs reveal">
+      <p class="chl">Channels I've edited for</p>
+      <div class="chr">
+        <a href="https://www.youtube.com/@SaabUnleashed" target="_blank" rel="noopener"><img src="img/clients/saab-unleashed.jpg" alt="" loading="lazy"><span>Saab Unleashed</span></a>
+        <a href="https://www.youtube.com/@Founder-Mode" target="_blank" rel="noopener"><img src="img/clients/founder-mode.jpg" alt="" loading="lazy"><span>Founder Mode</span></a>
+        <a href="https://www.youtube.com/channel/UCvvsRrO9-3PxjyfoX9W_5kw" target="_blank" rel="noopener"><img src="img/clients/once-and-past.jpg" alt="" loading="lazy"><span>Once &amp; Past</span></a>
+      </div>
+    </div>
   </div>
 </section>
 <footer class="ft" id="contact">
@@ -570,7 +585,9 @@ body.lock{overflow:hidden}
   /* Client results. Replace the placeholders with real numbers and quotes. */
   /* Real client testimonials. The section stays hidden until at least one is added.
      {quote:"...", name:"Client name", role:"Channel / company", channel:"https://youtube.com/@handle", thumb:"https://... (channel logo or video thumbnail)", num:"1.2M", unit:"views"} */
-  var QUOTES=[];
+  var QUOTES=[
+    {quote:"I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.",name:"Stuart",role:"Saab Unleashed",channel:"https://www.youtube.com/@SaabUnleashed",thumb:"img/clients/saab-unleashed.jpg"}
+  ];
   var FAQS=[
     ["What exactly does AlterAttic do?","I edit video. Long-form YouTube, Shorts and Reels, product and launch videos, podcast episodes and clips, and motion graphics. You send raw footage and a brief, and I deliver finished videos in every format you need."],
     ["Who do you work with?","Mostly SaaS and tech marketing teams, YouTube creators and podcast hosts. If you post video regularly and want it to look better and get watched longer, I'm a good fit."],
