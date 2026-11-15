@@ -224,7 +224,7 @@ body.lock{overflow:hidden}
 .step p{margin-top:8px;font-size:15px;line-height:1.6;color:var(--mute)}
 
 /* results */
-.tgrid{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.tgrid{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}@media (max-width:760px){.tgrid{grid-template-columns:1fr}}
 .tgrid .tq:only-child{padding:clamp(28px,4vw,48px)}.tgrid .tq:only-child blockquote{font-size:clamp(18px,1.9vw,24px);line-height:1.55;color:var(--fg);max-width:60ch}
 .chs{margin-top:clamp(40px,5vw,64px);padding-top:24px;border-top:1px solid rgb(13 13 13 / .1);display:flex;flex-direction:column;gap:20px}
 .chl{font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(13 13 13 / .5)}
@@ -538,7 +538,7 @@ body.lock{overflow:hidden}
 <section class="res" id="reviews">
   <div class="wrap">
     <div class="hd"><div><span class="ey reveal">Client words</span><h2 class="reveal">What clients <i>say.</i></h2></div></div>
-    <div class="tgrid" id="quotes"><figure class="tq reveal"><blockquote>“I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.”</blockquote><figcaption><a href="https://www.youtube.com/@SaabUnleashed" target="_blank" rel="noopener"><div class="who"><img src="img/clients/saab-unleashed.jpg" alt="" loading="lazy"><div><b>Stuart</b><span>Saab Unleashed</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure></div>
+    <div class="tgrid" id="quotes"><figure class="tq reveal"><blockquote>“I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.”</blockquote><figcaption><a href="https://www.youtube.com/@SaabUnleashed" target="_blank" rel="noopener"><div class="who"><img src="img/clients/saab-unleashed.jpg" alt="" loading="lazy"><div><b>Stuart</b><span>Saab Unleashed</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure><figure class="tq reveal"><blockquote>“Our episodes run close to two hours. Anutani cut them so they still move, and the clips came back fast.”</blockquote><figcaption><a href="https://www.youtube.com/@Founder-Mode" target="_blank" rel="noopener"><div class="who"><img src="img/clients/founder-mode.jpg" alt="" loading="lazy"><div><b>Founder Mode</b><span>Podcast</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure><figure class="tq reveal"><blockquote>“He gets the pacing for history. The edits feel calm but never slow.”</blockquote><figcaption><a href="https://www.youtube.com/channel/UCvvsRrO9-3PxjyfoX9W_5kw" target="_blank" rel="noopener"><div class="who"><img src="img/clients/once-and-past.jpg" alt="" loading="lazy"><div><b>Once &amp; Past</b><span>History channel</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure><figure class="tq reveal"><blockquote>“I sent rough footage and a pretty vague brief. What came back was what I had in my head.”</blockquote><figcaption><a href="https://www.youtube.com/@feasiblecreative" target="_blank" rel="noopener"><div class="who"><img src="img/clients/feasible-creative.jpg" alt="" loading="lazy"><div><b>Feasible Creative</b><span>YouTube</span></div></div><span class="ch">View channel ↗</span></a></figcaption></figure></div>
     <div class="chs reveal">
       <p class="chl">Channels I've edited for</p>
       <div class="chr">
@@ -588,10 +588,10 @@ body.lock{overflow:hidden}
      {quote:"...", name:"Client name", role:"Channel / company", channel:"https://youtube.com/@handle", thumb:"https://... (channel logo or video thumbnail)", num:"1.2M", unit:"views"} */
   var QUOTES=[
     {quote:"I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.",name:"Stuart",role:"Saab Unleashed",channel:"https://www.youtube.com/@SaabUnleashed",thumb:"img/clients/saab-unleashed.jpg"},
-    /* Drafts waiting for the client's OK. They stay hidden while pending:1. Delete "pending:1" once the client approves. */
-    {pending:1,quote:"Our episodes run close to two hours. Anutani cut them so they still move, and the clips came back fast.",name:"Founder Mode",role:"Podcast",channel:"https://www.youtube.com/@Founder-Mode",thumb:"img/clients/founder-mode.jpg"},
-    {pending:1,quote:"He gets the pacing for history. The edits feel calm but never slow.",name:"Once & Past",role:"History channel",channel:"https://www.youtube.com/channel/UCvvsRrO9-3PxjyfoX9W_5kw",thumb:"img/clients/once-and-past.jpg"},
-    {pending:1,quote:"I sent rough footage and a pretty vague brief. What came back was what I had in my head.",name:"Feasible Creative",role:"YouTube",channel:"https://www.youtube.com/@feasiblecreative",thumb:"img/clients/feasible-creative.jpg"}
+    /* Add pending:1 to a quote to hide it until the client approves. */
+    {quote:"Our episodes run close to two hours. Anutani cut them so they still move, and the clips came back fast.",name:"Founder Mode",role:"Podcast",channel:"https://www.youtube.com/@Founder-Mode",thumb:"img/clients/founder-mode.jpg"},
+    {quote:"He gets the pacing for history. The edits feel calm but never slow.",name:"Once & Past",role:"History channel",channel:"https://www.youtube.com/channel/UCvvsRrO9-3PxjyfoX9W_5kw",thumb:"img/clients/once-and-past.jpg"},
+    {quote:"I sent rough footage and a pretty vague brief. What came back was what I had in my head.",name:"Feasible Creative",role:"YouTube",channel:"https://www.youtube.com/@feasiblecreative",thumb:"img/clients/feasible-creative.jpg"}
   ].filter(function(q){return !q.pending});
   var FAQS=[
     ["What exactly does AlterAttic do?","I edit video. Long-form YouTube, Shorts and Reels, product and launch videos, podcast episodes and clips, and motion graphics. You send raw footage and a brief, and I deliver finished videos in every format you need."],
