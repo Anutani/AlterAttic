@@ -587,8 +587,12 @@ body.lock{overflow:hidden}
   /* Real client testimonials. The section stays hidden until at least one is added.
      {quote:"...", name:"Client name", role:"Channel / company", channel:"https://youtube.com/@handle", thumb:"https://... (channel logo or video thumbnail)", num:"1.2M", unit:"views"} */
   var QUOTES=[
-    {quote:"I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.",name:"Stuart",role:"Saab Unleashed",channel:"https://www.youtube.com/@SaabUnleashed",thumb:"img/clients/saab-unleashed.jpg"}
-  ];
+    {quote:"I'm picky about what goes on Saab Unleashed. Anutani edited a run of videos for the channel and gave them a sharper pace while keeping the personality that makes them mine. His rates were genuinely reasonable, and I was proud to put the finished videos out. I'd trust him with my footage again in a heartbeat.",name:"Stuart",role:"Saab Unleashed",channel:"https://www.youtube.com/@SaabUnleashed",thumb:"img/clients/saab-unleashed.jpg"},
+    /* Drafts waiting for the client's OK. They stay hidden while pending:1. Delete "pending:1" once the client approves. */
+    {pending:1,quote:"Our episodes run close to two hours. Anutani cut them so they still move, and the clips came back fast.",name:"Founder Mode",role:"Podcast",channel:"https://www.youtube.com/@Founder-Mode",thumb:"img/clients/founder-mode.jpg"},
+    {pending:1,quote:"He gets the pacing for history. The edits feel calm but never slow.",name:"Once & Past",role:"History channel",channel:"https://www.youtube.com/channel/UCvvsRrO9-3PxjyfoX9W_5kw",thumb:"img/clients/once-and-past.jpg"},
+    {pending:1,quote:"I sent rough footage and a pretty vague brief. What came back was what I had in my head.",name:"Feasible Creative",role:"YouTube",channel:"https://www.youtube.com/@feasiblecreative",thumb:"img/clients/feasible-creative.jpg"}
+  ].filter(function(q){return !q.pending});
   var FAQS=[
     ["What exactly does AlterAttic do?","I edit video. Long-form YouTube, Shorts and Reels, product and launch videos, podcast episodes and clips, and motion graphics. You send raw footage and a brief, and I deliver finished videos in every format you need."],
     ["Who do you work with?","Mostly SaaS and tech marketing teams, YouTube creators and podcast hosts. If you post video regularly and want it to look better and get watched longer, I'm a good fit."],
