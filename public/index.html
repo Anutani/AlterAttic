@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AlterAttic · Anutani Pegu, video editor for SaaS teams, creators and podcasts</title>
-<meta name="description" content="AlterAttic is Anutani Pegu, an independent video editor and motion designer. Long-form YouTube, Shorts and Reels, product and launch videos, and podcast clips, on monthly plans. 6+ years, 500+ projects, 10M+ views.">
+<meta name="description" content="AlterAttic is Anutani Pegu, an independent video editor and motion designer. Long-form YouTube, Shorts and Reels, product and launch videos, and podcast clips, on monthly plans. 7+ years, 1,000+ videos, 100M+ views.">
 <link rel="canonical" href="https://alterattic.in/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alterattic.in/">
@@ -55,7 +55,11 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 :focus-visible{outline:2px solid var(--or);outline-offset:3px}
 
 /* nav */
-.top{position:fixed;top:16px;left:0;right:0;z-index:50}
+.top{position:fixed;top:20px;left:0;right:0;z-index:50;padding:0;transition:top .38s cubic-bezier(.22,.9,.3,1),padding .38s cubic-bezier(.22,.9,.3,1)}
+.top::before{content:"";position:absolute;inset:0;background:rgb(250 250 250 / .9);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid rgb(230 230 230 / .7);opacity:0;transition:opacity .38s cubic-bezier(.22,.9,.3,1)}
+.top.sc{top:0;padding:10px 0}
+.top.sc::before{opacity:1}
+.top .wrap{position:relative}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--fg)}
 .logo i{font-style:normal;color:var(--or)}
@@ -67,13 +71,18 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 .navp span{width:1px;height:16px;background:var(--line)}
 .cta-s{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 22px;border-radius:999px;background:var(--or);color:#fff;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 8px 24px -8px rgb(var(--orr) / .55);transition:background .2s}
 .cta-s:hover{background:#ff7d1f}
-.burger{display:none;width:44px;height:44px;border-radius:50%;background:rgb(255 255 255 / .9);box-shadow:0 0 0 1px rgb(13 13 13 / .06),0 8px 24px -12px rgb(0 0 0 / .2);place-items:center}
-.burger span{display:block;width:16px;height:1.5px;background:var(--fg);box-shadow:0 5px 0 var(--fg),0 -5px 0 var(--fg)}
-@media (max-width:1023px){.navp,.top .cta-s{display:none}.burger{display:grid}}
-.menu{position:fixed;top:76px;left:16px;right:16px;z-index:49;background:#fff;border-radius:20px;box-shadow:0 0 0 1px rgb(13 13 13 / .06),0 24px 60px -20px rgb(0 0 0 / .25);padding:10px 20px 20px;display:none}
-.menu.open{display:block}
-.menu a{display:block;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--disp);font-size:20px;font-weight:600}
-.menu .cta-s{margin-top:16px;width:100%;justify-content:center;border:0}
+.burger{display:none;position:relative;width:46px;height:46px;border-radius:50%;background:var(--fg);box-shadow:0 8px 20px -8px rgb(0 0 0 / .4)}
+.burger i{position:absolute;left:14px;right:14px;height:2px;border-radius:2px;background:#fff;transition:transform .35s cubic-bezier(.22,.9,.3,1),top .35s cubic-bezier(.22,.9,.3,1)}
+.burger i:first-child{top:18px}.burger i:last-child{top:26px;left:20px}
+.burger.x{background:var(--or)}
+.burger.x i:first-child{top:22px;transform:rotate(45deg)}.burger.x i:last-child{top:22px;left:14px;transform:rotate(-45deg)}
+@media (max-width:1023px){.navp,.top .cta-s{display:none}.burger{display:block}.top{top:0;padding:12px 0}.top::before{opacity:1}.top .logo{background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0;height:auto;font-size:24px}}
+.menu{position:fixed;inset:0;z-index:45;background:rgb(250 250 250 / .97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:100px 24px 32px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .3s,transform .4s cubic-bezier(.22,.9,.3,1),visibility .3s}
+.menu.open{opacity:1;visibility:visible;transform:none}
+.menu a{display:flex;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-family:var(--disp);font-size:34px;font-weight:700;letter-spacing:-.03em}
+.menu a small{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--or);letter-spacing:.1em}
+.menu .cta-s{margin-top:auto;height:56px;width:100%;justify-content:center;font-size:14px;border:0}
+body.lock{overflow:hidden}
 
 /* hero */
 .hero{position:relative;padding-top:clamp(108px,9.5vw,136px);overflow:hidden;isolation:isolate}
@@ -83,38 +92,38 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
              radial-gradient(clamp(300px,36vw,560px) clamp(240px,26vw,420px) at 70% 75%,rgb(var(--orr) / .07),transparent 70%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgb(13 13 13 / .04) 1px,transparent 1px),linear-gradient(90deg,rgb(13 13 13 / .04) 1px,transparent 1px);background-size:88px 88px;
   -webkit-mask:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent 75%);mask:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent 75%)}
-.hero h1{position:relative;margin-top:24px;font-weight:600;font-size:clamp(58px,10.4vw,152px);line-height:.9;letter-spacing:-.035em}
+.hero h1{position:relative;margin-top:24px;font-weight:600;font-size:clamp(54px,7.4vw,108px);line-height:.9;letter-spacing:-.035em}
 .hero h1 i{color:rgb(13 13 13 / .45);font-size:1.08em}
 .hero h1 .o{color:var(--or);text-shadow:0 12px 50px rgb(var(--orr) / .35)}
 .hero h1 .d{color:var(--fg)}
 .tag{position:absolute;padding:6px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 6px 16px -8px rgb(0 0 0 / .18);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;animation:fl 6s ease-in-out infinite}
 .tag svg{position:absolute;left:-14px;top:-14px;width:14px;height:14px;color:var(--or)}
-.tag.t1{right:2%;top:-2%}.tag.t2{left:16%;bottom:-24%;animation-delay:-2s}.tag.t3{right:12%;bottom:-28%;animation-delay:-4s}
+.tag.t1{right:4%;top:2%}.tag.t2{right:18%;top:42%;animation-delay:-2s}.tag.t3{right:2%;top:78%;animation-delay:-4s}
 @keyframes fl{50%{transform:translateY(-6px)}}
 @media (max-width:767px){.tag{display:none}}
-.hrow{display:grid;grid-template-columns:6fr 3fr 3fr;gap:24px 32px;margin-top:clamp(64px,8vw,104px)}
+.hrow{display:grid;grid-template-columns:8fr 4fr;gap:24px 48px;margin-top:clamp(32px,3.5vw,48px)}
 .hrow>div{padding-top:20px;border-top:1px solid rgb(13 13 13 / .15)}
 .hrow .about{font-size:clamp(16px,1.4vw,18px);line-height:1.65;color:rgb(13 13 13 / .75);max-width:42ch}
 .hrow .wl{font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(13 13 13 / .5);margin-bottom:16px}
 .hrow ul{font-size:14px;font-weight:500;display:grid;gap:6px}
 .hrow ul b{font-weight:500;margin-right:14px}
-.hbtns{display:flex;flex-direction:column;gap:10px;padding-block:32px!important}
+.hbtns{display:flex;flex-direction:column;gap:10px}
 .rb{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;transition:background .3s,border-color .3s}
 .rb.k{background:var(--fg);color:#fff}.rb.k:hover{background:var(--or)}
 .rb.o{border:1px solid rgb(13 13 13 / .2)}.rb.o:hover{border-color:rgb(13 13 13 / .6)}
 .rb:hover .ar{transform:rotate(45deg)}
-@media (max-width:1023px){.hrow{grid-template-columns:1fr 1fr}.hrow>div:first-child{grid-column:1/-1}}
+@media (max-width:860px){.hrow{grid-template-columns:1fr}.hbtns{flex-direction:row;flex-wrap:wrap}.hbtns .rb{flex:1 1 200px}}
 @media (max-width:600px){.hrow{grid-template-columns:1fr}}
 
 /* stats */
 .stats{padding:32px 0 clamp(48px,7vw,96px)}
-.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:clamp(32px,4vw,56px)}
-.st{border-top:1px solid rgb(13 13 13 / .15);padding-top:24px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:clamp(28px,3vw,40px);padding-bottom:clamp(56px,7vw,96px)}
+.st{border-top:1px solid rgb(13 13 13 / .15);padding-top:16px}
 .st small{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgb(13 13 13 / .45)}
-.st .n{font-family:var(--disp);font-weight:500;font-size:clamp(44px,5vw,72px);letter-spacing:-.03em;line-height:1;margin-top:28px;font-variant-numeric:tabular-nums}
-.st p{margin-top:22px;font-size:14px;font-weight:500}
+.st .n{font-family:var(--disp);font-weight:600;font-size:clamp(40px,4.2vw,60px);letter-spacing:-.03em;line-height:1;margin-top:12px;font-variant-numeric:tabular-nums}
+.st p{margin-top:12px;font-size:14px;font-weight:500}
 .st p span{display:block;margin-top:4px;font-size:12px;font-weight:400;color:rgb(13 13 13 / .5)}
-@media (max-width:1023px){.sgrid{grid-template-columns:repeat(2,1fr);gap:40px 24px}}
+@media (max-width:700px){.sgrid{grid-template-columns:1fr 1fr;gap:32px 20px}.sgrid .st:last-child{grid-column:1/-1}}
 
 /* showreel */
 .reel{position:relative;padding:48px 0 64px;overflow:hidden;isolation:isolate}
@@ -393,13 +402,13 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 <header class="top" id="nav">
   <div class="wrap">
     <a class="logo" href="#top">alterattic<i>.</i></a>
-    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#services">Services</a><span></span><a href="#results">Results</a><span></span><a href="#pricing">Pricing</a><span></span><a href="#faq">FAQ</a></nav>
+    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#case">Case Study</a><span></span><a href="#results">Results</a><span></span><a href="#contact">Contact</a></nav>
     <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
-    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="Mobile">
-  <a href="#work">My Work</a><a href="#services">Services</a><a href="#results">Results</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+  <a href="#work"><small>01</small>My Work</a><a href="#case"><small>02</small>Case Study</a><a href="#results"><small>03</small>Results</a><a href="#contact"><small>04</small>Contact</a>
   <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
 </nav>
 
@@ -412,42 +421,21 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
       <span class="tag t1"><svg><use href="#cur"></use></svg>SaaS teams</span><span class="tag t2"><svg><use href="#cur"></use></svg>Creators</span><span class="tag t3"><svg><use href="#cur"></use></svg>Podcasts</span>
     </h1>
     <div class="hrow reveal in">
-      <div><p class="about">AlterAttic is my one-person editing studio. I turn raw footage into YouTube episodes, Shorts, launch videos and podcast clips that hold attention to the last second.</p></div>
-      <div><p class="wl">What I do</p><ul><li><b>01</b>Long-form &amp; YouTube</li><li><b>02</b>Shorts, Reels &amp; clips</li><li><b>03</b>Motion graphics</li></ul></div>
+      <div><p class="about">AlterAttic is my one-person editing studio. I turn raw footage into YouTube episodes, Shorts, podcasts and product videos that hold attention to the last second.</p></div>
       <div class="hbtns">
         <a class="rb k" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" target="_blank" rel="noopener">Start a project <svg class="ar"><use href="#ar-ur"></use></svg></a>
         <a class="rb o" href="#work">View my work <svg class="ar"><use href="#ar-ur"></use></svg></a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats">
-  <div class="wrap">
-    <p class="ln reveal">Impact in numbers</p>
     <div class="sgrid">
-      <div class="st reveal"><small>01</small><div class="n" data-count="500" data-suffix="+">500+</div><p>Projects edited<span>Long-form, shorts &amp; motion</span></p></div>
-      <div class="st reveal"><small>02</small><div class="n" data-count="10" data-suffix="M+">10M+</div><p>Views generated<span>Across client channels</span></p></div>
-      <div class="st reveal"><small>03</small><div class="n" data-count="6" data-suffix="+">6+</div><p>Years editing<span>Since the first cut</span></p></div>
-      <div class="st reveal"><small>04</small><div class="n" data-count="48" data-suffix="h">48h</div><p>First cut on shorts<span>Typical turnaround</span></p></div>
+      <div class="st reveal in"><small>01</small><div class="n" data-count="1000" data-suffix="+">936+</div><p>Videos edited<span>Long-form, shorts &amp; motion</span></p></div>
+      <div class="st reveal in"><small>02</small><div class="n" data-count="100" data-suffix="M+">94M+</div><p>Views generated<span>Across client channels</span></p></div>
+      <div class="st reveal in"><small>03</small><div class="n" data-count="7" data-suffix="+">7+</div><p>Years of experience<span>Editing since 2018</span></p></div>
     </div>
   </div>
 </section>
 
-<!-- SHOWREEL -->
-<section class="reel" id="showreel">
-  <div class="in4 reveal">
-    <p>Why work with me? Watch the reel.</p>
-    <div class="gb">
-      <button class="player" id="reel" type="button" aria-label="Play the showreel">
-        <span class="ph"></span>
-        <span class="cap"><small>ALTERATTIC · SHOWREEL 2026</small><b>Cut for <i>attention.</i></b></span>
-        <span class="pc"><svg><use href="#play"></use></svg></span>
-      </button>
-    </div>
-  </div>
-</section>
+
 
 <!-- WORK -->
 <section class="dk" id="work">
@@ -482,34 +470,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="svc" id="services">
-  <div class="wrap">
-    <p class="ln reveal">Capabilities</p>
-    <h2 class="reveal">Your footage. My edit. <i>More views.</i></h2>
-    <p class="sub reveal">Send the raw files and a short brief. I handle the cut, the motion, the sound and every format you post in, so you can get back to running the business.</p>
-    <div class="rows">
-      <div class="sr reveal"><small>01</small><h3>Long-form &amp; YouTube</h3><div><p>Hooks that hold the first 30 seconds, tight pacing, B-roll, sound design and chapters that keep watch time high.</p><div class="chips"><span>Hooks</span><span>Pacing</span><span>Sound</span><span>Thumbnails</span></div></div></div>
-      <div class="sr reveal"><small>02</small><h3>Shorts, Reels &amp; clips</h3><div><p>Vertical edits with captions, zooms and pattern breaks, cut from your long videos or shot for social.</p><div class="chips"><span>9:16</span><span>Captions</span><span>Repurposing</span></div></div></div>
-      <div class="sr reveal"><small>03</small><h3>Product &amp; launch videos</h3><div><p>Screen recordings turned into clear demos and launch films, with UI zooms, callouts and moving type.</p><div class="chips"><span>SaaS demos</span><span>Launches</span><span>Explainers</span></div></div></div>
-      <div class="sr reveal"><small>04</small><h3>Podcasts to clips</h3><div><p>Multi-cam episodes edited for YouTube, then the best moments cut into captioned clips every week.</p><div class="chips"><span>Multi-cam</span><span>Clips</span><span>Audio clean-up</span></div></div></div>
-      <div class="sr reveal"><small>05</small><h3>Motion graphics</h3><div><p>Logo reveals, kinetic type, animated titles and lower thirds that make a brand feel expensive.</p><div class="chips"><span>After Effects</span><span>Kinetic type</span><span>Brand kits</span></div></div></div>
-    </div>
-    <a class="tl reveal" href="#pricing">See these packaged into a plan <svg class="ar"><use href="#ar-ur"></use></svg></a>
-  </div>
-</section>
 
-<!-- PROCESS -->
-<section class="proc">
-  <div class="wrap">
-    <p class="ln reveal">How it works</p>
-    <div class="steps">
-      <div class="step reveal"><span class="when">Day 0</span><div class="no">01</div><h3>Send your footage</h3><p>Share a Drive or Dropbox link and a short brief. I reply with questions the same day.</p></div>
-      <div class="step reveal"><span class="when">Day 2</span><div class="no">02</div><h3>Get the first cut</h3><p>Shorts in about 48 hours, long-form in 3 to 5 days. You leave comments right on the video.</p></div>
-      <div class="step reveal"><span class="when">Day 4</span><div class="no">03</div><h3>Approve and post</h3><p>Two rounds of changes, then every format delivered, ready for YouTube, LinkedIn and Reels.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- RESULTS -->
 <section class="res" id="results">
@@ -522,105 +483,12 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pr" id="pricing">
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap cen">
-    <span class="pill reveal"><svg><use href="#spark"></use></svg>Plans, not hourly rates</span>
-    <h2 class="reveal">Choose your <span class="grad">edit plan</span></h2>
-    <p class="sub reveal">One flat price a month, billed in USD. No setup fees. Pause or cancel any month.</p>
-    <div class="plans">
 
-      <div class="pw reveal"><div class="pc2">
-        <div class="pt">
-          <div class="kd"><span><b>Plan 01</b><em></em><small>The podcast plan</small></span></div>
-          <div class="pn"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"></path></svg></span><h3>Podcast</h3></div>
-          <p class="pfor">For shows that publish every week</p>
-        </div>
-        <div class="pp"><div class="amt"><span class="c">$</span><span class="v">1,800</span><span class="m">/month</span></div><p class="pnote">Flat monthly. No setup fees. Cancel anytime.</p></div>
-        <div class="prom"><svg><use href="#shield"></use></svg><span><b>Try first:</b> 3 free clips from your latest episode before you pay.</span></div>
-        <div class="outs"><div><small>Episodes</small><b>4 / mo</b></div><div><small>Clips</small><b>40 / mo</b></div><div><small>Turnaround</small><b>72h</b></div></div>
-        <div class="inc">
-          <p class="hl"><svg><use href="#layers"></use></svg>What's inside the plan</p>
-          <ul><li><span class="ck"><svg><use href="#chk"></use></svg></span>Full episodes edited for YouTube</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Captioned vertical clips</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Thumbnails and chapters</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Audio clean-up and levelling</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>WhatsApp support</li></ul>
-          <div class="bf"><small>Best for</small><p>Weekly video podcasts that want clips on every platform</p></div>
-          <a class="pbtn" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'm%20interested%20in%20the%20Podcast%20plan.%20Can%20we%20talk%3F" data-wa="msg" data-plan="Podcast" target="_blank" rel="noopener">Start this plan <svg class="ar"><use href="#ar-r"></use></svg></a>
-        </div>
-      </div></div>
-
-      <div class="pw hot reveal"><div class="pc2">
-        <div class="pt">
-          <div class="kd"><span><b>Plan 02</b><em></em><small>The launch plan</small></span><span class="badge"><svg><use href="#spark"></use></svg>Most popular</span></div>
-          <div class="pn"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1zM12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"></path></svg></span><h3>Launch</h3></div>
-          <p class="pfor">For SaaS and brand marketing teams</p>
-        </div>
-        <div class="pp"><div class="amt"><span class="c">$</span><span class="v">2,500</span><span class="m">/month</span></div><p class="pnote">Flat monthly. No setup fees. Cancel anytime.</p></div>
-        <div class="prom"><svg><use href="#shield"></use></svg><span><b>Included:</b> two rounds of changes on every video, no extra fee.</span></div>
-        <div class="outs"><div><small>Videos</small><b>8 / mo</b></div><div><small>Motion</small><b>Included</b></div><div><small>Shorts</small><b>48h</b></div></div>
-        <div class="inc">
-          <p class="hl"><svg><use href="#layers"></use></svg>What's inside the plan</p>
-          <ul><li><span class="ck"><svg><use href="#chk"></use></svg></span>Demos, launch videos and social cuts</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Motion graphics included</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Every format: 16:9, 9:16, 1:1</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Thumbnails for every long video</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Shared board and WhatsApp support</li></ul>
-          <div class="bf"><small>Best for</small><p>Teams shipping features every month that need demos and social cuts</p></div>
-          <a class="pbtn" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'm%20interested%20in%20the%20Launch%20plan.%20Can%20we%20talk%3F" data-wa="msg" data-plan="Launch" target="_blank" rel="noopener">Start this plan <svg class="ar"><use href="#ar-r"></use></svg></a>
-        </div>
-      </div></div>
-
-      <div class="pw reveal"><div class="pc2">
-        <div class="pt">
-          <div class="kd"><span><b>Plan 03</b><em></em><small>The scale plan</small></span></div>
-          <div class="pn"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7zM5 20h14"></path></svg></span><h3>Scale</h3></div>
-          <p class="pfor">For teams and creators posting daily</p>
-        </div>
-        <div class="pp"><div class="amt"><span class="c">$</span><span class="v">3,900</span><span class="m">/month</span></div><p class="pnote">Flat monthly. No setup fees. Cancel anytime.</p></div>
-        <div class="prom"><svg><use href="#shield"></use></svg><span><b>One editor:</b> the same hands and the same style on every video.</span></div>
-        <div class="outs"><div><small>Videos</small><b>16 / mo</b></div><div><small>In progress</small><b>2 at once</b></div><div><small>Planning</small><b>Monthly</b></div></div>
-        <div class="inc">
-          <p class="hl"><svg><use href="#layers"></use></svg>What's inside the plan</p>
-          <ul><li><span class="ck"><svg><use href="#chk"></use></svg></span>Everything in Launch</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Explainers and advanced motion</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Monthly content planning call</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Priority turnaround</li><li><span class="ck"><svg><use href="#chk"></use></svg></span>Brand style guide for your videos</li></ul>
-          <div class="bf"><small>Best for</small><p>Brands and creators posting every day across every platform</p></div>
-          <a class="pbtn" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'm%20interested%20in%20the%20Scale%20plan.%20Can%20we%20talk%3F" data-wa="msg" data-plan="Scale" target="_blank" rel="noopener">Start this plan <svg class="ar"><use href="#ar-r"></use></svg></a>
-        </div>
-      </div></div>
-
-    </div>
-    <p class="single reveal">Just one video? <a href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" target="_blank" rel="noopener">Get a quote per video</a>. Not sure yet? Send one video and get 3 clips back, free.</p>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faqs" id="faq">
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap fq">
-    <div class="side">
-      <span class="pill reveal"><svg><use href="#spark"></use></svg>FAQ</span>
-      <h2 class="reveal">Questions I get <span class="grad">asked</span> <i>a lot</i></h2>
-      <p class="sub reveal">If yours isn't here, message me and you'll get a straight answer the same day.</p>
-      <a class="kb reveal" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" target="_blank" rel="noopener">Ask on WhatsApp <svg class="ar"><use href="#ar-r"></use></svg></a>
-      <p class="ln cnt reveal" id="cnt">8 answered</p>
-    </div>
-    <div id="faqs"><details class="qa reveal" open=""><summary><span class="nm">01</span><span class="sep"></span><span class="qt">What exactly does AlterAttic do?</span><span class="pl">+</span></summary><p class="an">I edit video. Long-form YouTube, Shorts and Reels, product and launch videos, podcast episodes and clips, and motion graphics. You send raw footage and a brief, and I deliver finished videos in every format you need.</p></details><details class="qa reveal"><summary><span class="nm">02</span><span class="sep"></span><span class="qt">Who do you work with?</span><span class="pl">+</span></summary><p class="an">Mostly SaaS and tech marketing teams, YouTube creators and podcast hosts. If you post video regularly and want it to look better and get watched longer, I'm a good fit.</p></details><details class="qa reveal"><summary><span class="nm">03</span><span class="sep"></span><span class="qt">How fast is the turnaround?</span><span class="pl">+</span></summary><p class="an">Shorts usually come back in about 48 hours. Long-form takes 3 to 5 days depending on length and motion graphics.</p></details><details class="qa reveal"><summary><span class="nm">04</span><span class="sep"></span><span class="qt">How many revisions do I get?</span><span class="pl">+</span></summary><p class="an">Two rounds of changes per video are included. Small fixes after that are usually fine too.</p></details><details class="qa reveal"><summary><span class="nm">05</span><span class="sep"></span><span class="qt">How do I send footage?</span><span class="pl">+</span></summary><p class="an">A Google Drive, Dropbox or WeTransfer link works. For big multi-cam shoots I can set up a shared folder.</p></details><details class="qa reveal"><summary><span class="nm">06</span><span class="sep"></span><span class="qt">How do I pay?</span><span class="pl">+</span></summary><p class="an">Monthly plans are billed in USD at the start of each month. Single videos are paid 50% upfront and 50% on delivery.</p></details><details class="qa reveal"><summary><span class="nm">07</span><span class="sep"></span><span class="qt">Can I try you before committing?</span><span class="pl">+</span></summary><p class="an">Yes. Send one video and I'll send 3 clips back, free, so you can judge the work first.</p></details><details class="qa reveal"><summary><span class="nm">08</span><span class="sep"></span><span class="qt">What if I already have an editor?</span><span class="pl">+</span></summary><p class="an">I can take the overflow, handle Shorts and motion graphics, or set up a style guide your editor can follow.</p></details></div>
-  </div>
-</section>
 </main>
 
-<!-- CTA -->
-<section class="dk" id="contact">
-  <div class="blob b1" aria-hidden="true"></div>
-  <div class="w6 ctg">
-    <div>
-      <span class="ey">Start here</span>
-      <h2>Tell me about your next video.</h2>
-      <p>Send a link to your channel or footage and where you want it to go. You'll hear back the same day with a straight read on what's working and what I'd change first.</p>
-    </div>
-    <div>
-      <a class="big-o" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Free intro call <svg class="ar"><use href="#ar-ur"></use></svg></a>
-      <a class="ctl" href="mailto:anutani9@gmail.com">or email anutani9@gmail.com</a>
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
-<footer class="dk">
+<footer class="dk" id="contact">
   <div class="blob b1" aria-hidden="true"></div>
   <div class="w6">
     <div class="fc">
@@ -636,7 +504,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
         <small>Elsewhere</small>
         <div class="fl">
           <a href="#work"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg></span>Featured edits</a>
-          <a href="#pricing"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg></span>Plans &amp; pricing</a>
+          <a href="#case"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 14 4-4 4 4 5-6"></path></svg></span>Case study</a>
           <a href="https://x.com/anutani_pegu" rel="noopener" target="_blank"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.5z"></path></svg></span>X / Twitter</a>
           <a href="mailto:anutani9@gmail.com"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></span>Email</a>
         </div>
@@ -644,7 +512,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     </div>
   </div>
   <div class="word" aria-hidden="true"><div>alterattic<i></i></div></div>
-  <div class="w6"><div class="fb"><b>AlterAttic<i></i>Assam, India</b><nav><a href="#top">Home</a><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav><span>Editing · Motion · Clips</span></div></div>
+  <div class="w6"><div class="fb"><b>AlterAttic<i></i>Assam, India</b><nav><a href="#top">Home</a><a href="#work">Work</a><a href="#case">Case study</a><a href="#results">Results</a></nav><span>Editing · Motion · Clips</span></div></div>
 </footer>
 
 <a class="wa" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" aria-label="Message on WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.6-1.3.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"></path></svg></a>
@@ -706,12 +574,11 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   document.getElementById("quotes").innerHTML=QUOTES.map(function(q){return '<div class="q reveal"><div><div class="big">'+esc(q.num)+'<small>'+esc(q.unit)+'</small></div><p class="when">'+esc(q.when)+'</p></div><blockquote>“'+esc(q.quote)+'”'+(q.todo?'<br><span class="todo">Placeholder: real quote needed</span>':'')+'</blockquote><div class="who"><i></i><div><b>'+esc(q.name)+'</b><span>'+esc(q.role)+'</span></div></div></div>'}).join("");
 
   /* faq */
-  document.getElementById("faqs").innerHTML=FAQS.map(function(f,i){return '<details class="qa reveal"'+(i?'':' open')+'><summary><span class="nm">'+String(i+1).padStart(2,"0")+'</span><span class="sep"></span><span class="qt">'+esc(f[0])+'</span><span class="pl">+</span></summary><p class="an">'+esc(f[1])+'</p></details>'}).join("");
+  if(0)document.getElementById("faqs").innerHTML=FAQS.map(function(f,i){return '<details class="qa reveal"'+(i?'':' open')+'><summary><span class="nm">'+String(i+1).padStart(2,"0")+'</span><span class="sep"></span><span class="qt">'+esc(f[0])+'</span><span class="pl">+</span></summary><p class="an">'+esc(f[1])+'</p></details>'}).join("");
 
-  document.getElementById("cnt").textContent=FAQS.length+" answered";
   document.getElementById("case-v").addEventListener("click",function(e){yt(e.currentTarget,"gI7AGaFbRDE")},{once:true});
   /* showreel */
-  document.getElementById("reel").addEventListener("click",function(e){var p=e.currentTarget;if(CONFIG.reel){yt(p,CONFIG.reel);}else location.href=waLink("Hi Anutani, can you send me your showreel?");});
+
 
   /* contact links */
   function waLink(text){return CONFIG.whatsapp?"https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(text):"mailto:"+CONFIG.email;}
@@ -722,8 +589,10 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   /* nav */
   var nav=document.getElementById("nav");
   var burger=document.getElementById("burger"),menu=document.getElementById("menu");
-  burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
-  menu.addEventListener("click",function(e){if(e.target.tagName==="A"){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")}});
+  function setMenu(o){menu.classList.toggle("open",o);burger.classList.toggle("x",o);document.body.classList.toggle("lock",o);burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Close menu":"Open menu")}
+  burger.addEventListener("click",function(){setMenu(!menu.classList.contains("open"))});
+  menu.addEventListener("click",function(e){if(e.target.closest("a"))setMenu(false)});
+  function onScroll(){nav.classList.toggle("sc",scrollY>24)}addEventListener("scroll",onScroll,{passive:true});onScroll();
 
   /* reveal + counters */
   function count(el){var to=+el.dataset.count,suf=el.dataset.suffix||"",t0=performance.now();
