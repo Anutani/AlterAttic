@@ -349,7 +349,7 @@ body.lock{overflow:hidden}
 @media (max-width:639px){.qa summary{gap:14px;padding:20px}.qa .nm{font-size:24px}.qa .an{margin:0 20px 22px}}
 
 /* cta */
-#contact{padding:var(--sec) 0 0;border-top:1px solid var(--nline)}
+
 #contact .b1{top:-96px;left:50%;translate:-50% 0;width:min(1000px,120vw);height:380px;background:rgb(var(--orr) / .2)}
 .ctg{display:grid;grid-template-columns:1fr auto;gap:40px 80px;align-items:center}
 @media (max-width:1023px){.ctg{grid-template-columns:1fr}}
@@ -363,10 +363,29 @@ body.lock{overflow:hidden}
 .ctl:hover{color:var(--nfg)}
 
 
-/* footer */
-footer{--nfg:#f2efea;--nmute:#6e665e;--nline:#1e1815;--mute:#8a8079;background:#0b0908;color:#f2efea;padding-top:var(--sec)}
-footer .fl a span{background:rgb(255 255 255 / .02)!important}
-footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr) / .18)}
+
+/* contact / closing */
+.ft{position:relative;padding:var(--sec) 0 0;overflow:hidden;isolation:isolate}
+.ft::before{content:"";position:absolute;inset:auto -10% -30% -10%;height:80%;z-index:-1;pointer-events:none;background:radial-gradient(50% 60% at 20% 100%,rgb(var(--orr) / .14),transparent 70%),radial-gradient(40% 50% at 85% 90%,rgb(255 163 71 / .12),transparent 70%)}
+.ft h2{margin-top:clamp(12px,1.6vw,24px);font-weight:600;font-size:clamp(44px,7vw,100px);line-height:.92;letter-spacing:-.04em}
+.ft h2 i{color:rgb(13 13 13 / .45);font-size:1.06em}
+.ft h2 .o{color:var(--or);text-shadow:0 6px 18px rgb(var(--orr) / .3)}
+.frow{display:grid;grid-template-columns:5fr 3fr 4fr;gap:24px 40px;margin-top:clamp(36px,4vw,56px)}
+.frow>*{padding-top:20px;border-top:1px solid rgb(13 13 13 / .15)}
+.frow .about{font-size:clamp(16px,1.4vw,18px);line-height:1.65;color:rgb(13 13 13 / .75);max-width:42ch}
+.cc{display:block;transition:border-color .3s}
+.cc small{display:block;font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(13 13 13 / .5)}
+.cc b{display:block;margin-top:12px;font-family:var(--disp);font-size:clamp(18px,1.6vw,22px);font-weight:700;letter-spacing:-.02em;transition:color .3s;overflow-wrap:anywhere}
+.cc span{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgb(13 13 13 / .6);transition:color .3s}
+.cc .ar{width:14px;height:14px;transition:transform .3s}
+.cc:hover{border-color:var(--or)}.cc:hover b,.cc:hover span{color:var(--or)}.cc:hover .ar{transform:rotate(45deg)}
+.fbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;margin-top:clamp(72px,9vw,128px);padding:24px 0 32px;border-top:1px solid rgb(13 13 13 / .1);font-size:13px;color:var(--mute)}
+.fbar .logo{font-size:20px}
+.fbar nav{display:flex;flex-wrap:wrap;gap:24px}
+.fbar nav a{transition:color .2s}.fbar nav a:hover{color:var(--or)}
+@media (max-width:860px){.frow{grid-template-columns:1fr 1fr}.frow>div:first-child{grid-column:1/-1}}
+@media (max-width:560px){.frow{grid-template-columns:1fr}.fbar{flex-direction:column;align-items:flex-start}}
+/* old footer */
 .fc{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px}
 @media (max-width:860px){.fc{grid-template-columns:1fr}}
 .fc .logo{color:var(--nfg)}
@@ -516,31 +535,21 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     <div class="tgrid" id="quotes"></div>
   </div>
 </section>
-<footer class="dk" id="contact">
-  <div class="blob b1" aria-hidden="true"></div>
-  <div class="w6">
-    <div class="fc">
-      <div><a class="logo" href="#top">alterattic<i>.</i></a><p>Video editing and motion graphics for SaaS teams, creators and podcasts.</p></div>
-      <div>
-        <small>Call or WhatsApp</small>
-        <a class="ph-big" href="#contact" data-wa="msg">+91 69009 98476</a><br>
-        <a class="wl2" href="#contact" data-wa="msg">Message on WhatsApp <svg class="ar"><use href="#ar-r"/></svg></a>
-        <small style="margin-top:36px">Email</small>
-        <a class="em" href="mailto:anutani9@gmail.com">anutani9@gmail.com</a>
-      </div>
-      <div>
-        <small>Elsewhere</small>
-        <div class="fl">
-          <a href="#work"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></span>Featured edits</a>
-          <a href="#case"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-6"/></svg></span>Sales videos</a>
-          <a href="https://x.com/anutani_pegu" rel="noopener" target="_blank"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.5z"/></svg></span>X / Twitter</a>
-          <a href="mailto:anutani9@gmail.com"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>Email</a>
-        </div>
-      </div>
+<footer class="ft" id="contact">
+  <div class="wrap">
+    <p class="ln reveal">Contact</p>
+    <h2 class="reveal">Got footage?<br>Let's make it <i>worth</i> <span class="o">watching</span><span class="d">.</span></h2>
+    <div class="frow reveal">
+      <div><p class="about">Tell me what you're making and where it will be posted. I'll reply with samples from your niche and a simple plan.</p></div>
+      <a class="cc" href="#contact" data-wa="msg"><small>WhatsApp</small><b>+91 69009 98476</b><span>Message me <svg class="ar"><use href="#ar-ur"/></svg></span></a>
+      <a class="cc" href="mailto:anutani9@gmail.com"><small>Email</small><b>anutani9@gmail.com</b><span>Write to me <svg class="ar"><use href="#ar-ur"/></svg></span></a>
+    </div>
+    <div class="fbar">
+      <a class="logo" href="#top">alterattic<i>.</i></a>
+      <nav><a href="#work">Work</a><a href="#case">Sales videos</a><a href="#top">Back to top ↑</a></nav>
+      <span>© <span id="yr">2026</span> Anutani Pegu · Assam, India</span>
     </div>
   </div>
-  <div class="word" aria-hidden="true"><div>alterattic<i></i></div></div>
-  <div class="w6"><div class="fb"><b>AlterAttic<i></i>Assam, India</b><nav><a href="#top">Home</a><a href="#work">Work</a><a href="#case">Sales videos</a><a href="#contact">Contact</a></nav><span>Editing · Motion · Clips</span></div></div>
 </footer>
 
 <a class="wa" href="#contact" data-wa="msg" aria-label="Message on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.6-1.3.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></a>
@@ -619,7 +628,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   function setMenu(o){menu.classList.toggle("open",o);burger.classList.toggle("x",o);document.body.classList.toggle("lock",o);burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Close menu":"Open menu")}
   burger.addEventListener("click",function(){setMenu(!menu.classList.contains("open"))});
   menu.addEventListener("click",function(e){if(e.target.closest("a"))setMenu(false)});
-  setTimeout(()=>{const h=document.querySelector(".hero h1");h&&h.classList.add("done")},1700);let pt=0;const pxl=[...document.querySelectorAll(".hbg .ly")];function onScroll(){nav.classList.toggle("sc",scrollY>24);if(!pt&&scrollY<1400){pt=1;requestAnimationFrame(()=>{pt=0;const y=scrollY;pxl.forEach(l=>l.style.transform="translate3d(0,"+(y*l.dataset.px).toFixed(1)+"px,0)")})}}addEventListener("scroll",onScroll,{passive:true});onScroll();
+  setTimeout(()=>{const h=document.querySelector(".hero h1");h&&h.classList.add("done")},1700);var _y=document.getElementById("yr");if(_y)_y.textContent=new Date().getFullYear();let pt=0;const pxl=[...document.querySelectorAll(".hbg .ly")];function onScroll(){nav.classList.toggle("sc",scrollY>24);if(!pt&&scrollY<1400){pt=1;requestAnimationFrame(()=>{pt=0;const y=scrollY;pxl.forEach(l=>l.style.transform="translate3d(0,"+(y*l.dataset.px).toFixed(1)+"px,0)")})}}addEventListener("scroll",onScroll,{passive:true});onScroll();
 
   /* reveal + counters */
   function count(el){var to=+el.dataset.count,suf=el.dataset.suffix||"",t0=performance.now();
