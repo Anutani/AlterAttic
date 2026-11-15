@@ -148,9 +148,9 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 .tabs button svg{width:16px;height:16px}
 .tabs button[aria-selected=true]{color:#fff;background:linear-gradient(90deg,#d34a06,var(--or),#ff9933);box-shadow:0 8px 24px -10px rgb(var(--orr) / .8)}
 .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:clamp(40px,5vw,56px);text-align:left}
-.wgrid.v{grid-template-columns:repeat(4,1fr)}
-@media (max-width:1023px){.wgrid{grid-template-columns:repeat(2,1fr)}.wgrid.v{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.wgrid{grid-template-columns:1fr;gap:28px}.wgrid.v{grid-template-columns:repeat(2,1fr);gap:16px}}
+.wgrid.v{grid-template-columns:repeat(auto-fit,minmax(200px,260px));justify-content:center}
+@media (max-width:1023px){.wgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.wgrid{grid-template-columns:1fr;gap:28px}.wgrid.v{grid-template-columns:minmax(0,280px)}}
 .wc{display:flex;flex-direction:column;justify-content:flex-start;align-self:start;width:100%;text-align:left}
 .wc .fr{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgb(255 255 255 / .1);transition:box-shadow .5s}
 .wgrid.v .wc .fr{aspect-ratio:9/16}
@@ -163,7 +163,7 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 .wc .pc{width:64px}
 .wc .du{position:absolute;right:12px;bottom:12px;z-index:2;font-family:var(--mono);font-size:11px;color:#fff;background:rgb(0 0 0 / .55);padding:2px 8px;border-radius:6px}
 .wc h3{margin-top:16px;font-size:18px;font-weight:600;letter-spacing:-.01em;color:var(--nfg);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.wc h3 span{font-family:var(--sans);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:var(--nmute)}
+.wc h3 span{white-space:nowrap;font-family:var(--sans);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:var(--nmute)}
 .more{margin-top:56px;color:var(--nmute);font-size:15px}
 .more a{color:var(--nfg);border-bottom:1px solid rgb(242 239 234 / .3)}
 
@@ -355,6 +355,25 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 .wa{position:fixed;right:20px;bottom:20px;z-index:40;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -10px rgb(0 0 0 / .45);transition:transform .3s}
 .wa:hover{transform:translateY(-3px)}
 .wa svg{width:26px;height:26px}
+
+/* case study */
+.case{position:relative;padding:clamp(88px,10vw,140px) 0;overflow:hidden;isolation:isolate}
+.case::before{content:"";position:absolute;right:-10%;top:10%;width:min(900px,90vw);height:600px;border-radius:50%;background:radial-gradient(closest-side,rgb(var(--orr) / .1),transparent);z-index:-1}
+.case h2{margin-top:16px;font-size:clamp(40px,5.6vw,72px);font-weight:700;line-height:1;letter-spacing:-.03em;max-width:16ch}
+.case h2 i{color:var(--or)}
+.cg{display:grid;grid-template-columns:1.1fr 1fr;gap:48px 64px;margin-top:clamp(40px,5vw,64px);align-items:start}
+@media (max-width:960px){.cg{grid-template-columns:1fr}}
+.player img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cstats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:20px;border:1px solid rgb(230 230 230 / .8);border-radius:16px;background:rgb(255 255 255 / .7);overflow:hidden}
+.cstats div{padding:16px 14px}.cstats div+div{border-left:1px solid rgb(230 230 230 / .8)}
+.cstats b{display:block;font-family:var(--disp);font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em;color:var(--or)}
+.cstats span{display:block;margin-top:4px;font-size:12px;color:var(--mute);line-height:1.3}
+.lead2{font-size:clamp(17px,1.5vw,19px);line-height:1.6;color:rgb(13 13 13 / .8)}
+.crow{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:22px 0;border-bottom:1px solid var(--line)}
+.crow:first-of-type{margin-top:12px;border-top:1px solid var(--line)}
+.crow small{font-family:var(--mono);font-size:11px;color:rgb(var(--orr) / .8);padding-top:5px}
+.crow h3{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.crow p{margin-top:6px;font-size:15px;line-height:1.6;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -434,9 +453,30 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   <div class="w6 cen">
     <span class="ey reveal">Some of my work</span>
     <h2 class="reveal">Featured <span class="grad">Edits</span></h2>
-    <div class="tabs reveal" role="tablist" aria-label="Filter videos" id="tabs"><button type="button" role="tab" data-c="Long form" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg>Long form</button><button type="button" role="tab" data-c="Shorts &amp; Reels" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path></svg>Shorts &amp; Reels</button><button type="button" role="tab" data-c="Product &amp; SaaS" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>Product &amp; SaaS</button><button type="button" role="tab" data-c="Podcasts" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"></path></svg>Podcasts</button><button type="button" role="tab" data-c="Motion graphics" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8L20 9l-5 3.6L16.9 19 12 15.4 7.1 19 9 12.6 4 9l6.1-.2z"></path></svg>Motion graphics</button></div>
-    <div class="wgrid" id="grid"><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:20%;--y:20%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">14:20</span></div><h3>Travel documentary episode<span>YouTube</span></h3></button><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:43%;--y:51%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">11:05</span></div><h3>Tech review<span>YouTube</span></h3></button><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:66%;--y:22%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">9:40</span></div><h3>Finance explainer<span>YouTube</span></h3></button><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:29%;--y:53%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">12:15</span></div><h3>Talking head essay<span>YouTube</span></h3></button><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:52%;--y:24%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">18:02</span></div><h3>Interview edit<span>YouTube</span></h3></button><button type="button" class="wc"><div class="fr"><div class="ph" style="--x:75%;--y:55%"></div><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">8:30</span></div><h3>Course lesson<span>Education</span></h3></button></div>
+    <div class="tabs reveal" role="tablist" aria-label="Filter videos" id="tabs"><button type="button" role="tab" data-c="Long form" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg>Long form</button><button type="button" role="tab" data-c="Shorts &amp; Reels" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path></svg>Shorts &amp; Reels</button></div>
+    <div class="wgrid" id="grid"><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/E4kSgSBPAhQ/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/E4kSgSBPAhQ/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">1:42:49</span></div><h3>Founder Mode podcast, Erik Podzuweit<span>Podcast</span></h3></button><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/ii7CRIz2W9A/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ii7CRIz2W9A/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">5:10</span></div><h3>The Partition of India, explained<span>Faceless</span></h3></button><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/4CShgNhLIMs/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/4CShgNhLIMs/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">1:04</span></div><h3>Gem product video<span>SaaS</span></h3></button><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">11:53</span></div><h3>Freight broker sales training<span>Coaching</span></h3></button><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/77lg9Ip657Y/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/77lg9Ip657Y/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">1:01</span></div><h3>Aevy TV trail edit<span>Talking head</span></h3></button><button type="button" class="wc"><div class="fr"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/1WaYC63HaVw/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/1WaYC63HaVw/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span><span class="du">1:36</span></div><h3>Real estate property film<span>Real estate</span></h3></button></div>
     <p class="more">Want something specific? <a href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" target="_blank" rel="noopener">Ask for samples in your niche</a></p>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case" id="case">
+  <div class="wrap">
+    <span class="ey reveal">Case study · Freight brokerage</span>
+    <h2 class="reveal">Not every video needs views. <i>Some need sales.</i></h2>
+    <div class="cg">
+      <div class="reveal">
+        <div class="gb"><button class="player" id="case-v" type="button" aria-label="Play the freight brokerage video"><img alt="" loading="lazy" src="https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span></button></div>
+        <div class="cstats"><div><b>11:53</b><span>Long-form lesson</span></div><div><b>3,000+</b><span>Views from a niche audience</span></div><div><b>1 job</b><span>Turn viewers into students</span></div></div>
+      </div>
+      <div class="ctext reveal">
+        <p class="lead2">Matt Krause teaches people how to build a freight brokerage. His videos aren't made to go viral. They're made so the right viewer trusts him enough to join his training.</p>
+        <div class="crow"><small>01</small><div><h3>The goal</h3><p>Sell a course and a coaching program, not chase a million views. A small, serious audience is worth more than a big, casual one.</p></div></div>
+        <div class="crow"><small>02</small><div><h3>The edit</h3><p>Clear structure, key points on screen and calm pacing that keeps a serious viewer watching a long lesson to the end, where the offer is.</p></div></div>
+        <div class="crow"><small>03</small><div><h3>Who it's for</h3><p>Course creators, coaches, consultants and B2B services that sell through trust, not trends.</p></div></div>
+        <a class="kb" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I%20need%20videos%20that%20help%20sell%20my%20course%20or%20service." data-wa="sell" target="_blank" rel="noopener">Need videos that sell? <svg class="ar"><use href="#ar-r"></use></svg></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -612,24 +652,13 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   var CONFIG={whatsapp:"916900998476", email:"anutani9@gmail.com", reel:""}; /* reel: a YouTube video id for the showreel */
   /* Featured edits. id = YouTube video id (the part after watch?v=). Leave id empty to show a placeholder. */
   var WORK=[
-    {cat:"Long form",title:"Travel documentary episode",tag:"YouTube",dur:"14:20",id:""},
-    {cat:"Long form",title:"Tech review",tag:"YouTube",dur:"11:05",id:""},
-    {cat:"Long form",title:"Finance explainer",tag:"YouTube",dur:"9:40",id:""},
-    {cat:"Long form",title:"Talking head essay",tag:"YouTube",dur:"12:15",id:""},
-    {cat:"Long form",title:"Interview edit",tag:"YouTube",dur:"18:02",id:""},
-    {cat:"Long form",title:"Course lesson",tag:"Education",dur:"8:30",id:""},
-    {cat:"Shorts & Reels",title:"Founder reel",tag:"Reels",dur:"0:34",id:"",v:1},
-    {cat:"Shorts & Reels",title:"LinkedIn cut",tag:"LinkedIn",dur:"0:45",id:"",v:1},
-    {cat:"Shorts & Reels",title:"Recipe short",tag:"Shorts",dur:"0:28",id:"",v:1},
-    {cat:"Shorts & Reels",title:"Paid social ad",tag:"Ads",dur:"0:20",id:"",v:1},
-    {cat:"Product & SaaS",title:"Product demo",tag:"SaaS",dur:"1:42",id:""},
-    {cat:"Product & SaaS",title:"Launch video",tag:"Launch",dur:"0:58",id:""},
-    {cat:"Product & SaaS",title:"Feature explainer",tag:"SaaS",dur:"1:10",id:""},
-    {cat:"Podcasts",title:"Podcast episode",tag:"Multi-cam",dur:"58:10",id:""},
-    {cat:"Podcasts",title:"Podcast clips",tag:"Clips",dur:"0:52",id:"",v:1},
-    {cat:"Motion graphics",title:"Logo reveal",tag:"Motion",dur:"0:12",id:""},
-    {cat:"Motion graphics",title:"Kinetic type promo",tag:"Motion",dur:"0:30",id:""},
-    {cat:"Motion graphics",title:"Brand film",tag:"Brand",dur:"2:10",id:""}
+    {cat:"Long form",title:"Founder Mode podcast, Erik Podzuweit",tag:"Podcast",dur:"1:42:49",id:"E4kSgSBPAhQ"},
+    {cat:"Long form",title:"The Partition of India, explained",tag:"Faceless",dur:"5:10",id:"ii7CRIz2W9A"},
+    {cat:"Long form",title:"Gem product video",tag:"SaaS",dur:"1:04",id:"4CShgNhLIMs"},
+    {cat:"Long form",title:"Freight broker sales training",tag:"Coaching",dur:"11:53",id:"gI7AGaFbRDE"},
+    {cat:"Long form",title:"Aevy TV trail edit",tag:"Talking head",dur:"1:01",id:"77lg9Ip657Y"},
+    {cat:"Long form",title:"Real estate property film",tag:"Real estate",dur:"1:36",id:"1WaYC63HaVw"},
+    {cat:"Shorts & Reels",title:"Real estate short",tag:"Real estate",dur:"0:30",id:"5RtL__aVXHw",v:1}
   ];
   /* Client results. Replace the placeholders with real numbers and quotes. */
   var QUOTES=[
@@ -664,7 +693,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     var list=WORK.filter(function(w){return w.cat===cur}),vert=list.every(function(w){return w.v});
     grid.className="wgrid"+(vert?" v":"");grid.innerHTML="";
     list.forEach(function(w,i){var a=document.createElement("button");a.type="button";a.className="wc";
-      a.innerHTML='<div class="fr">'+(w.id?'<img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+esc(w.id)+'/hqdefault.jpg">':'<div class="ph" style="--x:'+(20+i*23%60)+'%;--y:'+(20+i*31%60)+'%"></div>')+PLAY+'<span class="du">'+esc(w.dur)+'</span></div><h3>'+esc(w.title)+'<span>'+esc(w.tag)+'</span></h3>';
+      a.innerHTML='<div class="fr">'+(w.id?'<img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+esc(w.id)+'/'+(w.v?'oar2.jpg':'maxresdefault.jpg')+'" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+esc(w.id)+'/hqdefault.jpg\'">':'<div class="ph" style="--x:'+(20+i*23%60)+'%;--y:'+(20+i*31%60)+'%"></div>')+PLAY+'<span class="du">'+esc(w.dur)+'</span></div><h3>'+esc(w.title)+'<span>'+esc(w.tag)+'</span></h3>';
       a.addEventListener("click",function(){if(w.id)yt(a.querySelector(".fr"),w.id);else location.href=waLink("Hi Anutani, can you show me a "+w.title.toLowerCase()+" sample?")});
       grid.appendChild(a);});
   }
@@ -677,13 +706,14 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   document.getElementById("faqs").innerHTML=FAQS.map(function(f,i){return '<details class="qa reveal"'+(i?'':' open')+'><summary><span class="nm">'+String(i+1).padStart(2,"0")+'</span><span class="sep"></span><span class="qt">'+esc(f[0])+'</span><span class="pl">+</span></summary><p class="an">'+esc(f[1])+'</p></details>'}).join("");
 
   document.getElementById("cnt").textContent=FAQS.length+" answered";
+  document.getElementById("case-v").addEventListener("click",function(e){yt(e.currentTarget,"gI7AGaFbRDE")},{once:true});
   /* showreel */
   document.getElementById("reel").addEventListener("click",function(e){var p=e.currentTarget;if(CONFIG.reel){yt(p,CONFIG.reel);}else location.href=waLink("Hi Anutani, can you send me your showreel?");});
 
   /* contact links */
   function waLink(text){return CONFIG.whatsapp?"https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(text):"mailto:"+CONFIG.email;}
   document.querySelectorAll("[data-wa]").forEach(function(a){
-    var t=a.dataset.wa==="call"?"Hi Anutani, I'd like to book a 15-minute call about video editing.":a.dataset.plan?"Hi Anutani, I'm interested in the "+a.dataset.plan+" plan. Can we talk?":"Hi Anutani, I'd like to talk about a video project.";
+    var t=a.dataset.wa==="sell"?"Hi Anutani, I need videos that help sell my course or service.":a.dataset.wa==="call"?"Hi Anutani, I'd like to book a 15-minute call about video editing.":a.dataset.plan?"Hi Anutani, I'm interested in the "+a.dataset.plan+" plan. Can we talk?":"Hi Anutani, I'd like to talk about a video project.";
     a.href=waLink(t);a.target="_blank";a.rel="noopener";});
 
   /* nav */
