@@ -20,6 +20,7 @@
   --bg:#fafafa; --card:#ffffff; --fg:#0d0d0d; --mute:#6b6b6b; --line:#e6e6e6;
   --or:#ff6a00; --or2:#ffa347; --orr:255 106 0;
   --night:#fafafa; --nfg:#0d0d0d; --nmute:#6b6b6b; --nline:#e6e6e6;
+  --sec:clamp(64px,7vw,104px);
   --grad:linear-gradient(135deg,#ff6a00,#ffa347);
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --disp:"Montserrat",system-ui,Arial,sans-serif;
@@ -85,7 +86,7 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 body.lock{overflow:hidden}
 
 /* hero */
-.hero{position:relative;padding-top:clamp(132px,14vw,224px);padding-bottom:clamp(24px,3vw,48px);overflow:hidden;isolation:isolate}
+.hero{position:relative;padding-top:clamp(132px,14vw,224px);padding-bottom:var(--sec);overflow:hidden;isolation:isolate}
 .hbg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .hbg .grid{position:absolute;inset:0;opacity:.075;background-image:linear-gradient(rgb(13 13 13 / .6) 1px,transparent 1px),linear-gradient(90deg,rgb(13 13 13 / .6) 1px,transparent 1px);background-size:clamp(40px,6vw,88px) clamp(40px,6vw,88px);-webkit-mask:radial-gradient(black 35%,transparent 78%);mask:radial-gradient(black 35%,transparent 78%)}
 .hbg .ly{position:absolute;inset:0;will-change:transform}
@@ -134,7 +135,7 @@ body.lock{overflow:hidden}
 /* stats */
 .stats{padding:32px 0 clamp(48px,7vw,96px)}
 .hero .sl{margin-top:clamp(56px,7vw,96px)}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:clamp(28px,3vw,40px);padding-bottom:clamp(56px,7vw,96px)}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:clamp(28px,3vw,40px)}
 .st{border-top:1px solid rgb(13 13 13 / .15);padding-top:16px}
 .st small{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgb(13 13 13 / .45)}
 .st .n{font-family:var(--disp);font-weight:600;font-size:clamp(40px,4.2vw,60px);letter-spacing:-.03em;line-height:1;margin-top:12px;font-variant-numeric:tabular-nums}
@@ -163,7 +164,7 @@ body.lock{overflow:hidden}
 /* dark */
 .dk{position:relative;color:var(--fg);overflow:hidden;isolation:isolate}
 .blob{position:absolute;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(130px)}
-#work{padding:clamp(80px,9vw,128px) 0}
+#work{padding:var(--sec) 0}
 #work .b1{top:-40px;left:5%;width:clamp(240px,38vw,560px);aspect-ratio:1;background:rgb(var(--orr) / .1)}
 #work .b2{bottom:-64px;right:5%;width:clamp(240px,38vw,560px);aspect-ratio:1;background:radial-gradient(circle,rgb(255 163 71 / .18),transparent 70%)}
 .cen{text-align:center}
@@ -223,7 +224,15 @@ body.lock{overflow:hidden}
 .step p{margin-top:8px;font-size:15px;line-height:1.6;color:var(--mute)}
 
 /* results */
-.res{padding:clamp(80px,8vw,112px) 0}
+.tgrid{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.tq{display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:20px;background:#fff;box-shadow:0 0 0 1px rgb(13 13 13 / .06),0 24px 48px -32px rgb(0 0 0 / .3)}
+.tq .big{font-family:var(--disp);font-weight:800;font-size:40px;letter-spacing:-.03em;line-height:1;color:var(--or)}
+.tq .big small{font-size:16px;font-weight:500;color:var(--mute);margin-left:6px;letter-spacing:0}
+.tq blockquote{flex:1;font-size:17px;line-height:1.6;color:rgb(13 13 13 / .8)}
+.tq figcaption a{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tq .ch{font-size:12px;font-weight:600;color:var(--or);white-space:nowrap}
+.who img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.res{padding:var(--sec) 0}
 .res .hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px}
 .res h2{margin-top:16px;font-size:clamp(40px,5.2vw,60px);font-weight:700;line-height:.95;letter-spacing:-.03em}
 .mlink{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:14px;font-weight:500;color:var(--mute);transition:color .2s}
@@ -339,7 +348,7 @@ body.lock{overflow:hidden}
 @media (max-width:639px){.qa summary{gap:14px;padding:20px}.qa .nm{font-size:24px}.qa .an{margin:0 20px 22px}}
 
 /* cta */
-#contact{padding:clamp(80px,8vw,96px) 0;border-top:1px solid var(--nline)}
+#contact{padding:var(--sec) 0 0;border-top:1px solid var(--nline)}
 #contact .b1{top:-96px;left:50%;translate:-50% 0;width:min(1000px,120vw);height:380px;background:rgb(var(--orr) / .2)}
 .ctg{display:grid;grid-template-columns:1fr auto;gap:40px 80px;align-items:center}
 @media (max-width:1023px){.ctg{grid-template-columns:1fr}}
@@ -354,8 +363,9 @@ body.lock{overflow:hidden}
 
 
 /* footer */
-footer{padding-top:72px;border-top:1px solid var(--nline)}
-footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr) / .08)}
+footer{--nfg:#f2efea;--nmute:#6e665e;--nline:#1e1815;--mute:#8a8079;background:#0b0908;color:#f2efea;padding-top:var(--sec)}
+footer .fl a span{background:rgb(255 255 255 / .02)!important}
+footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr) / .18)}
 .fc{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px}
 @media (max-width:860px){.fc{grid-template-columns:1fr}}
 .fc .logo{color:var(--nfg)}
@@ -372,7 +382,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 .fl a span svg{width:16px;height:16px}
 .word{position:relative;margin-top:56px;height:clamp(84px,14.5vw,210px);overflow:hidden;text-align:center}
 .word div{font-family:"Archivo",var(--disp);font-stretch:125%;font-variation-settings:"wdth" 125;display:inline-block;position:relative;font-weight:900;font-size:clamp(76px,16vw,260px);line-height:.95;letter-spacing:-.045em;white-space:nowrap;user-select:none;
-  background:linear-gradient(180deg,#3a3532 0%,#0d0d0d 30%,#1c1917 48%,#5a514b 56%,#0d0d0d 72%,#2a2522 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  background:linear-gradient(180deg,#f6ded6 0%,#d9b2a2 22%,#b98d7c 38%,#f1d7bd 52%,#c9a090 66%,#e8c8c9 82%,#a88c98 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .word i{position:absolute;right:-.2em;top:.1em;width:.16em;aspect-ratio:1;border-radius:50%;background:var(--or)}
 .fb{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:22px 0 26px;border-top:1px solid var(--nline);font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
 .fb nav{display:flex;flex-wrap:wrap;gap:18px}
@@ -386,7 +396,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 .wa svg{width:26px;height:26px}
 
 /* case study */
-.case{position:relative;padding:clamp(88px,10vw,140px) 0;overflow:hidden;isolation:isolate}
+.case{position:relative;padding:var(--sec) 0;overflow:hidden;isolation:isolate}
 .case::before{content:"";position:absolute;right:-10%;top:10%;width:min(900px,90vw);height:600px;border-radius:50%;background:radial-gradient(closest-side,rgb(var(--orr) / .1),transparent);z-index:-1}
 .case h2{margin-top:16px;font-size:clamp(40px,5.6vw,72px);font-weight:700;line-height:1;letter-spacing:-.03em;max-width:16ch}
 .case h2 i{color:var(--or)}
@@ -420,13 +430,13 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 <header class="top" id="nav">
   <div class="wrap">
     <a class="logo" href="#top">alterattic<i>.</i></a>
-    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#case">Case Study</a><span></span><a href="#contact">Contact</a></nav>
+    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#case">Sales Videos</a><span></span><a href="#contact">Contact</a></nav>
     <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="Mobile">
-  <a href="#work"><small>01</small>My Work</a><a href="#case"><small>02</small>Case Study</a><a href="#contact"><small>03</small>Contact</a>
+  <a href="#work"><small>01</small>My Work</a><a href="#case"><small>02</small>Sales Videos</a><a href="#contact"><small>03</small>Contact</a>
   <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
 </nav>
 
@@ -467,10 +477,10 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   </div>
 </section>
 
-<!-- CASE STUDY -->
+<!-- VIDEOS THAT SELL -->
 <section class="case" id="case">
   <div class="wrap">
-    <span class="ey reveal">Case study · Freight brokerage</span>
+    <span class="ey reveal">Videos that sell · Freight brokerage</span>
     <h2 class="reveal">Not every video needs views. <i>Some need sales.</i></h2>
     <div class="cg">
       <div class="reveal">
@@ -498,6 +508,13 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
 
 
 <!-- FOOTER -->
+<!-- TESTIMONIALS (shown once real quotes are added in QUOTES) -->
+<section class="res" id="reviews" hidden="">
+  <div class="wrap">
+    <div class="hd"><div><span class="ey reveal">Client words</span><h2 class="reveal">What clients <i>say.</i></h2></div></div>
+    <div class="tgrid" id="quotes"></div>
+  </div>
+</section>
 <footer class="dk" id="contact">
   <div class="blob b1" aria-hidden="true"></div>
   <div class="w6">
@@ -514,7 +531,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
         <small>Elsewhere</small>
         <div class="fl">
           <a href="#work"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg></span>Featured edits</a>
-          <a href="#case"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 14 4-4 4 4 5-6"></path></svg></span>Case study</a>
+          <a href="#case"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 14 4-4 4 4 5-6"></path></svg></span>Sales videos</a>
           <a href="https://x.com/anutani_pegu" rel="noopener" target="_blank"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.5z"></path></svg></span>X / Twitter</a>
           <a href="mailto:anutani9@gmail.com"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></span>Email</a>
         </div>
@@ -522,7 +539,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     </div>
   </div>
   <div class="word" aria-hidden="true"><div>alterattic<i></i></div></div>
-  <div class="w6"><div class="fb"><b>AlterAttic<i></i>Assam, India</b><nav><a href="#top">Home</a><a href="#work">Work</a><a href="#case">Case study</a><a href="#contact">Contact</a></nav><span>Editing · Motion · Clips</span></div></div>
+  <div class="w6"><div class="fb"><b>AlterAttic<i></i>Assam, India</b><nav><a href="#top">Home</a><a href="#work">Work</a><a href="#case">Sales videos</a><a href="#contact">Contact</a></nav><span>Editing · Motion · Clips</span></div></div>
 </footer>
 
 <a class="wa" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" aria-label="Message on WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.6-1.3.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"></path></svg></a>
@@ -542,11 +559,9 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     {cat:"Shorts & Reels",title:"Real estate short",tag:"Real estate",dur:"0:30",id:"5RtL__aVXHw",v:1}
   ];
   /* Client results. Replace the placeholders with real numbers and quotes. */
-  var QUOTES=[
-    {num:"1.2M",unit:"views",when:"Client · 2025",quote:"A short quote from a client about the edit and the result goes here.",name:"Client name",role:"Channel or company",todo:1},
-    {num:"3x",unit:"watch time",when:"Client · 2025",quote:"A second quote: what changed after working together, in their own words.",name:"Client name",role:"Channel or company",todo:1},
-    {num:"40",unit:"clips / month",when:"Client · 2025",quote:"A third quote, ideally from a podcast or SaaS client.",name:"Client name",role:"Channel or company",todo:1}
-  ];
+  /* Real client testimonials. The section stays hidden until at least one is added.
+     {quote:"...", name:"Client name", role:"Channel / company", channel:"https://youtube.com/@handle", thumb:"https://... (channel logo or video thumbnail)", num:"1.2M", unit:"views"} */
+  var QUOTES=[];
   var FAQS=[
     ["What exactly does AlterAttic do?","I edit video. Long-form YouTube, Shorts and Reels, product and launch videos, podcast episodes and clips, and motion graphics. You send raw footage and a brief, and I deliver finished videos in every format you need."],
     ["Who do you work with?","Mostly SaaS and tech marketing teams, YouTube creators and podcast hosts. If you post video regularly and want it to look better and get watched longer, I'm a good fit."],
@@ -581,7 +596,8 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
   render();
 
   /* results */
-  var _q=document.getElementById("quotes");if(_q)_q.innerHTML=QUOTES.map(function(q){return '<div class="q reveal"><div><div class="big">'+esc(q.num)+'<small>'+esc(q.unit)+'</small></div><p class="when">'+esc(q.when)+'</p></div><blockquote>“'+esc(q.quote)+'”'+(q.todo?'<br><span class="todo">Placeholder: real quote needed</span>':'')+'</blockquote><div class="who"><i></i><div><b>'+esc(q.name)+'</b><span>'+esc(q.role)+'</span></div></div></div>'}).join("");
+  var _q=document.getElementById("quotes"),_rs=document.getElementById("reviews");
+  if(_q&&QUOTES.length){_rs.hidden=false;_q.innerHTML=QUOTES.map(function(q){var who='<div class="who">'+(q.thumb?'<img src="'+esc(q.thumb)+'" alt="" loading="lazy">':'<i></i>')+'<div><b>'+esc(q.name)+'</b><span>'+esc(q.role||"")+'</span></div></div>';return '<figure class="tq reveal">'+(q.num?'<div class="big">'+esc(q.num)+'<small>'+esc(q.unit||"")+'</small></div>':'')+'<blockquote>“'+esc(q.quote)+'”</blockquote><figcaption>'+(q.channel?'<a href="'+esc(q.channel)+'" target="_blank" rel="noopener">'+who+'<span class="ch">View channel ↗</span></a>':who)+'</figcaption></figure>'}).join("")}
 
   /* faq */
   if(0)document.getElementById("faqs").innerHTML=FAQS.map(function(f,i){return '<details class="qa reveal"'+(i?'':' open')+'><summary><span class="nm">'+String(i+1).padStart(2,"0")+'</span><span class="sep"></span><span class="qt">'+esc(f[0])+'</span><span class="pl">+</span></summary><p class="an">'+esc(f[1])+'</p></details>'}).join("");
