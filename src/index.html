@@ -168,6 +168,8 @@ h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter
 .more{margin-top:56px;color:var(--nmute);font-size:15px}
 .more a{color:var(--nfg);border-bottom:1px solid rgb(242 239 234 / .3)}
 
+.igb{position:absolute;left:50%;top:22%;translate:-50% 0;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.igb svg{width:14px;height:14px}
 /* services */
 .svc{padding:clamp(80px,9vw,128px) 0 clamp(48px,6vw,80px)}
 .svc h2{margin-top:28px;font-size:clamp(46px,6.6vw,92px);font-weight:600;line-height:1;letter-spacing:-.035em;max-width:14ch}
@@ -659,6 +661,7 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     {cat:"Long form",title:"Freight broker sales training",tag:"Coaching",dur:"11:53",id:"gI7AGaFbRDE"},
     {cat:"Long form",title:"Aevy TV trail edit",tag:"Talking head",dur:"1:01",id:"77lg9Ip657Y"},
     {cat:"Long form",title:"Real estate property film",tag:"Real estate",dur:"1:36",id:"1WaYC63HaVw"},
+    {cat:"Shorts & Reels",title:"Coach reel",tag:"Coaching",dur:"",ig:"DGLYScLOzTv",v:1},
     {cat:"Shorts & Reels",title:"Real estate short",tag:"Real estate",dur:"0:30",id:"5RtL__aVXHw",v:1}
   ];
   /* Client results. Replace the placeholders with real numbers and quotes. */
@@ -694,8 +697,8 @@ footer .b1{top:-160px;left:20%;width:900px;height:500px;background:rgb(var(--orr
     var list=WORK.filter(function(w){return w.cat===cur}),vert=list.every(function(w){return w.v});
     grid.className="wgrid"+(vert?" v":"");grid.innerHTML="";
     list.forEach(function(w,i){var a=document.createElement("button");a.type="button";a.className="wc";
-      a.innerHTML='<div class="fr">'+(w.id?'<img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+esc(w.id)+'/'+(w.v?'oar2.jpg':'maxresdefault.jpg')+'" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+esc(w.id)+'/hqdefault.jpg\'">':'<div class="ph" style="--x:'+(20+i*23%60)+'%;--y:'+(20+i*31%60)+'%"></div>')+PLAY+'<span class="du">'+esc(w.dur)+'</span></div><h3>'+esc(w.title)+'<span>'+esc(w.tag)+'</span></h3>';
-      a.addEventListener("click",function(){if(w.id)yt(a.querySelector(".fr"),w.id);else location.href=waLink("Hi Anutani, can you show me a "+w.title.toLowerCase()+" sample?")});
+      a.innerHTML='<div class="fr">'+(w.id?'<img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+esc(w.id)+'/'+(w.v?'oar2.jpg':'maxresdefault.jpg')+'" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+esc(w.id)+'/hqdefault.jpg\'">':'<div class="ph" style="--x:'+(20+i*23%60)+'%;--y:'+(20+i*31%60)+'%">'+(w.ig?'<span class="igb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram reel</span>':'')+'</div>')+PLAY+(w.dur?'<span class="du">'+esc(w.dur)+'</span>':'')+'</div><h3>'+esc(w.title)+'<span>'+esc(w.tag)+'</span></h3>';
+      a.addEventListener("click",function(){if(w.ig){if(!a.querySelector("iframe"))a.querySelector(".fr").insertAdjacentHTML("beforeend",'<iframe src="https://www.instagram.com/reel/'+esc(w.ig)+'/embed/" title="Instagram reel" allowfullscreen loading="lazy" style="background:#fff"></iframe>');}else if(w.id)yt(a.querySelector(".fr"),w.id);else location.href=waLink("Hi Anutani, can you show me a "+w.title.toLowerCase()+" sample?")});
       grid.appendChild(a);});
   }
   render();
