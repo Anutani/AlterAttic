@@ -2928,7 +2928,7 @@ var currentCommandId = "";
 // command under concurrent/rapid tool dispatch). The server matches results purely
 // by _commandId, so AE never needs to write the command file at all.
 var lastProcessedCommandId = "";
-var BRIDGE_VERSION = "1.13.0-mcp-enhanced";
+var BRIDGE_VERSION = "1.13.0-alterattic.1";
 // Pure read-only commands: they never mutate the project, so we skip the undo
 // group for them (no empty "MCP: ping" entries cluttering Edit > Undo History).
 var READ_ONLY_COMMANDS = {
@@ -3631,7 +3631,11 @@ function seeFrame(args) {
             var scalePct = (tw / comp.width) * 100;
             try { nested.property("ADBE Transform Group").property("ADBE Scale").setValue([scalePct, scalePct]); } catch (e) {}
             try { nested.property("ADBE Transform Group").property("ADBE Position").setValue([tw / 2, th / 2]); } catch (e) {}
-            try { nested.collapseTransformation = true; } catch (e) {}
+            // Do NOT collapse transformations: collapsing a nested 3D comp makes its 3D
+            // layers render through THIS temp comp's (absent, i.e. default) camera instead
+            // of the comp's own animated camera, so every frame looked like an unmoving
+            // default view. Rendering the nested comp flat keeps its own camera.
+            try { nested.collapseTransformation = false; } catch (e) {}
             target = tempComp;
         }
         try { target.motionBlur = motionBlur; } catch (e) {}

@@ -205,9 +205,18 @@ describe("resolveBridgeDir", () => {
 describe("aerenderCandidates", () => {
   it("builds Windows aerender.exe paths newest-year-first", () => {
     const c = aerenderCandidates("win32", { ProgramFiles: "C:\\Program Files" });
-    expect(c[0]).toContain("2026");
+    expect(c[0]).toContain("2028");
     expect(c[0]).toContain("aerender.exe");
-    expect(c.every((p) => p.includes("Program Files"))).toBe(true);
+    expect(c[0]).toContain("Program Files");
+  });
+
+  it("finds AE installed outside Program Files (e.g. D:\\Software) and honors AE_INSTALL_DIR", () => {
+    const c = aerenderCandidates("win32", {
+      ProgramFiles: "C:\\Program Files",
+      AE_INSTALL_DIR: "F:\\Apps\\Adobe After Effects 2027",
+    });
+    expect(c[0]).toBe("F:\\Apps\\Adobe After Effects 2027\\Support Files\\aerender.exe");
+    expect(c).toContain("D:\\Software\\Adobe After Effects 2027\\Support Files\\aerender.exe");
   });
 
   it("defaults ProgramFiles when unset on win32", () => {

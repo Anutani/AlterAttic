@@ -1,4 +1,4 @@
-﻿import { execSync } from "child_process";
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -9,23 +9,23 @@ const __dirname = path.dirname(__filename);
 const isMac = process.platform === "darwin";
 const isWindows = process.platform === "win32";
 
-const possiblePaths = isMac
-  ? [
-      "/Applications/Adobe After Effects 2026",
-      "/Applications/Adobe After Effects 2025",
-      "/Applications/Adobe After Effects 2024",
-      "/Applications/Adobe After Effects 2023",
-      "/Applications/Adobe After Effects 2022",
-      "/Applications/Adobe After Effects 2021",
-    ]
-  : [
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2026",
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2025",
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2024",
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2023",
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2022",
-      "C:\\Program Files\\Adobe\\Adobe After Effects 2021",
-    ];
+// Years newest-first. AE_INSTALL_DIR (the "Adobe After Effects <year>" folder) covers
+// installs outside the default location, e.g. D:\Software\Adobe After Effects 2027.
+const years = ["2028", "2027", "2026", "2025", "2024", "2023", "2022", "2021"];
+const winRoots = [
+  "C:\\Program Files\\Adobe",
+  "D:\\Program Files\\Adobe",
+  "D:\\Software",
+  "D:\\Adobe",
+  "E:\\Program Files\\Adobe",
+  "E:\\Software",
+];
+const possiblePaths = [];
+if (process.env.AE_INSTALL_DIR) possiblePaths.push(process.env.AE_INSTALL_DIR);
+for (const y of years) {
+  if (isMac) possiblePaths.push(`/Applications/Adobe After Effects ${y}`);
+  else for (const r of winRoots) possiblePaths.push(`${r}\\Adobe After Effects ${y}`);
+}
 
 let afterEffectsPath = null;
 for (const testPath of possiblePaths) {
@@ -35,18 +35,24 @@ for (const testPath of possiblePaths) {
   }
 }
 
-if (!afterEffectsPath) {
+// On Windows the panel is installed per user under %APPDATA%\Adobe\After Effects\<version>,
+// which exists wherever AE itself is installed, so a missing install folder is only fatal
+// when there is no %APPDATA% version folder either.
+const hasAppDataAE =
+  isWindows &&
+  !!process.env.APPDATA &&
+  fs.existsSync(path.join(process.env.APPDATA, "Adobe", "After Effects"));
+
+if (!afterEffectsPath && !hasAppDataAE) {
   console.error("Error: Could not find After Effects installation.");
   console.error(
-    "Please manually copy the bridge script to your After Effects ScriptUI Panels folder.",
+    "Set AE_INSTALL_DIR to your 'Adobe After Effects <year>' folder, or copy the bridge script manually.",
   );
   console.error("Source: build/scripts/mcp-bridge-auto.jsx");
   if (isMac) {
     console.error("Target: /Applications/Adobe After Effects [VERSION]/Scripts/ScriptUI Panels/");
   } else {
-    console.error(
-      "Target: C:\\Program Files\\Adobe\\Adobe After Effects [VERSION]\\Support Files\\Scripts\\ScriptUI Panels\\",
-    );
+    console.error("Target: %APPDATA%\\Adobe\\After Effects\\[VERSION]\\Scripts\\ScriptUI Panels\\");
   }
   process.exit(1);
 }

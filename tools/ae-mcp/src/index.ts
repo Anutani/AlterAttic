@@ -22,6 +22,7 @@ import {
   POLL_START_MS,
 } from "./lib/bridge-core.js";
 import { collectPresetFiles } from "./lib/preset-scan.js";
+import { buildShotListScript, validatePlan, type ShotPlan } from "./lib/shot-list.js";
 import { analyzeWavBuffer, WavAnalysis } from "./lib/wav.js";
 import {
   buildFrameContent,
@@ -2558,7 +2559,7 @@ server.tool(
 
 // Bump this whenever the bridge .jsx protocol changes, and keep it in sync with
 // BRIDGE_VERSION in src/scripts/mcp-bridge-auto.jsx. check-bridge warns on mismatch.
-const EXPECTED_BRIDGE_VERSION = "1.13.0-mcp-enhanced";
+const EXPECTED_BRIDGE_VERSION = "1.13.0-alterattic.1";
 
 server.tool(
   "check-bridge",
@@ -4189,6 +4190,303 @@ server.tool(
         isError: true,
       };
     }
+  },
+);
+
+// --- AlterAttic additions ------------------------------------------------------
+
+const hexColor = z.string().regex(/^#?[0-9a-fA-F]{6}$/, "hex colour like #FF4D12");
+
+server.tool(
+  "build-shot-list",
+  "Build a whole edit from a beat-timed SHOT LIST in one call: a master comp with every scene laid end to end (existing comps, or labelled placeholder comps you can fill in later), hidden-cut transitions on the beat (dive = zoom into a point until it fills the frame and the next scene continues the forward motion; whip = fast pan/roll with motion blur through the cut; collapse = squash to a line that re-opens as the next scene; flash = 2 bone-white frames; cut = plain), an optional CARRIER element (a glowing dot that stays on screen across cuts and leads the eye), beat/downbeat comp markers, and the song. Motion blur is on (360 deg, 16 samples). Cut times must equal scene boundaries, ideally downbeats. If a comp with the same name exists it is renamed '(old ...)', never deleted. Check the result with preview-render or see-frame.",
+  {
+    compName: z.string().describe("Name of the master comp to create."),
+    width: z.number().int().positive().optional().describe("Default 1080 (vertical reel)."),
+    height: z.number().int().positive().optional().describe("Default 1920 (vertical reel)."),
+    fps: z.number().positive().optional().describe("Default 30."),
+    duration: z.number().positive().describe("Master comp duration in seconds."),
+    background: hexColor.optional().describe("Background under every scene. Default #0A0A0B."),
+    audioPath: z.string().optional().describe("Absolute path of the song to import and lay at 0s."),
+    beats: z.array(z.number()).optional().describe("Beat times in seconds (become comp markers)."),
+    downbeats: z
+      .array(z.number())
+      .optional()
+      .describe("Downbeat times in seconds (labelled markers DB 1, DB 2...)."),
+    scenes: z
+      .array(
+        z.object({
+          name: z.string(),
+          start: z.number().min(0),
+          end: z.number().positive(),
+          comp: z
+            .string()
+            .optional()
+            .describe("Existing comp to use; omit to create a placeholder."),
+          color: hexColor.optional().describe("Placeholder background colour."),
+          title: z
+            .string()
+            .optional()
+            .describe("Placeholder title (defaults to the scene name; '' for none)."),
+          textColor: hexColor.optional(),
+        }),
+      )
+      .min(1),
+    transitions: z
+      .array(
+        z.object({
+          at: z
+            .number()
+            .describe(
+              "Cut time in seconds; must equal one scene's end and the next scene's start.",
+            ),
+          type: z.enum(["cut", "flash", "dive", "whip", "collapse"]),
+          duration: z
+            .number()
+            .positive()
+            .optional()
+            .describe("Seconds of motion around the cut (default 0.5)."),
+          target: z
+            .tuple([z.number(), z.number()])
+            .optional()
+            .describe("dive: point in the outgoing scene to dive into (px)."),
+          direction: z
+            .enum(["left", "right", "up", "down"])
+            .optional()
+            .describe("whip direction (default left)."),
+          roll: z.number().optional().describe("whip: extra roll in degrees."),
+          zoom: z
+            .number()
+            .optional()
+            .describe("dive: zoom factor of the outgoing scene (default 25)."),
+          flash: z.boolean().optional().describe("Add a 2-frame flash on this cut too."),
+        }),
+      )
+      .optional(),
+    carrier: z
+      .object({
+        color: hexColor.optional().describe("Default #FF4D12 (signal orange)."),
+        size: z.number().positive().optional().describe("Diameter px, default 28."),
+        glow: z.boolean().optional().describe("Default true."),
+        keys: z.array(z.object({ t: z.number(), x: z.number(), y: z.number() })).min(1),
+      })
+      .optional(),
+    timeoutMs: z.number().int().positive().max(600000).optional(),
+  },
+  async (a) => {
+    const plan: ShotPlan = {
+      compName: a.compName,
+      width: a.width ?? 1080,
+      height: a.height ?? 1920,
+      fps: a.fps ?? 30,
+      duration: a.duration,
+      background: a.background ?? "#0A0A0B",
+      audioPath: a.audioPath,
+      beats: a.beats,
+      downbeats: a.downbeats,
+      scenes: a.scenes,
+      transitions: a.transitions,
+      carrier: a.carrier,
+    };
+    const problems = validatePlan(plan);
+    if (problems.length) {
+      return {
+        content: [{ type: "text", text: JSON.stringify({ status: "error", problems }, null, 2) }],
+        isError: true,
+      };
+    }
+    try {
+      const raw = await sendBridgeCommand(
+        "executeScript",
+        { script: buildShotListScript(plan) },
+        a.timeoutMs ?? 120000,
+        250,
+      );
+      return bridgeToolResult(raw);
+    } catch (error) {
+      return {
+        content: [{ type: "text", text: `Error building shot list: ${String(error)}` }],
+        isError: true,
+      };
+    }
+  },
+);
+
+server.tool(
+  "preview-render",
+  "Render a comp (or a time range of it) to an MP4 with aerender in the background, WAIT for it, then pull frames out of the finished video with ffmpeg and return them as images. Unlike see-frame this shows exactly what the final render shows (animated 3D cameras, motion blur, effects), so use it to check transitions: pass the cut times and it grabs frames just before, on and after each one. The project is saved first. Needs ffmpeg on PATH (or AE_FFMPEG_PATH).",
+  {
+    compName: z.string(),
+    outputPath: z.string().describe("Absolute .mp4 path for the preview render."),
+    times: z
+      .array(z.number())
+      .optional()
+      .describe("Times (s, comp time) to grab frames at. Default: 6 evenly spaced."),
+    aroundCuts: z
+      .array(z.number())
+      .optional()
+      .describe("Cut times: grabs 2 frames before, the cut frame and 2 frames after each."),
+    from: z.number().optional().describe("Start of the range to render (s). Default 0."),
+    to: z.number().optional().describe("End of the range to render (s). Default: the whole comp."),
+    fps: z
+      .number()
+      .positive()
+      .optional()
+      .describe("Comp frame rate, used to convert times to frames (default 30)."),
+    outputModuleTemplate: z
+      .string()
+      .optional()
+      .describe("aerender -OMtemplate, e.g. an H.264 template name."),
+    frameWidth: z
+      .number()
+      .int()
+      .positive()
+      .max(1920)
+      .optional()
+      .describe("Width of the returned frames (default 360)."),
+    waitMs: z
+      .number()
+      .int()
+      .positive()
+      .max(3600000)
+      .optional()
+      .describe("How long to wait for the render (default 600000)."),
+  },
+  async (p) => {
+    const aerenderPath = findAerender();
+    if (!aerenderPath)
+      return {
+        content: [
+          { type: "text", text: "aerender not found. Set AE_AERENDER_PATH or AE_INSTALL_DIR." },
+        ],
+        isError: true,
+      };
+    const ff = findFfmpeg();
+    if (!ff)
+      return {
+        content: [{ type: "text", text: "ffmpeg not found. Install it or set AE_FFMPEG_PATH." }],
+        isError: true,
+      };
+    const fps = p.fps ?? 30;
+    await sendBridgeCommand(
+      "executeScript",
+      {
+        script:
+          "if (app.project.file) { app.project.save(); return app.project.file.fsName; } else { return null; }",
+      },
+      20000,
+      300,
+    );
+    const projectPath = await getOpenProjectPath();
+    if (!projectPath)
+      return {
+        content: [{ type: "text", text: "Save the project in After Effects first (File > Save)." }],
+        isError: true,
+      };
+
+    const from = p.from ?? 0;
+    const args = ["-project", projectPath, "-comp", p.compName, "-output", p.outputPath];
+    if (p.outputModuleTemplate) args.push("-OMtemplate", p.outputModuleTemplate);
+    if (p.from !== undefined) args.push("-s", String(Math.round(p.from * fps)));
+    if (p.to !== undefined) args.push("-e", String(Math.round(p.to * fps)));
+    const logPath = path.join(getAETempDir(), `aerender-preview-${nextCommandId()}.log`);
+    const out = fs.openSync(logPath, "a");
+    try {
+      fs.unlinkSync(p.outputPath);
+    } catch {
+      /* no previous render */
+    }
+    const startedAt = Date.now();
+    const child = spawn(aerenderPath, args, { stdio: ["ignore", out, out] });
+    const exitCode: number | null = await new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        try {
+          child.kill();
+        } catch {
+          /* already gone */
+        }
+        resolve(null);
+      }, p.waitMs ?? 600000);
+      child.on("exit", (code) => {
+        clearTimeout(timer);
+        resolve(code);
+      });
+    });
+    const renderSec = Math.round((Date.now() - startedAt) / 100) / 10;
+    if (exitCode !== 0 || !fs.existsSync(p.outputPath)) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              { status: "error", exitCode, output: p.outputPath, logTail: tailFile(logPath, 3000) },
+              null,
+              2,
+            ),
+          },
+        ],
+        isError: true,
+      };
+    }
+
+    // Times in comp time -> times in the rendered file.
+    let times: number[] = [];
+    const dt = 1 / fps;
+    for (const c of p.aroundCuts ?? []) times.push(c - 2 * dt, c - dt, c, c + dt, c + 2 * dt);
+    if (p.times) times.push(...p.times);
+    if (!times.length) {
+      const probe = spawnSync(ff, ["-i", p.outputPath], { encoding: "utf8", timeout: 10000 });
+      const m = /Duration: (\d+):(\d+):([\d.]+)/.exec(probe.stderr || "");
+      const len = m ? +m[1] * 3600 + +m[2] * 60 + +m[3] : 6;
+      for (let i = 0; i < 6; i++) times.push(from + (len * (i + 0.5)) / 6);
+    }
+    times = Array.from(new Set(times.map((t) => Math.round(t * 1000) / 1000)))
+      .filter((t) => t >= from)
+      .sort((a, b) => a - b)
+      .slice(0, 40);
+
+    const width = p.frameWidth ?? 360;
+    const content: ContentBlock[] = [
+      {
+        type: "text",
+        text: `Rendered ${p.compName} -> ${p.outputPath} in ${renderSec}s. Frames (comp time):`,
+      },
+    ];
+    for (const t of times) {
+      const png = path.join(os.tmpdir(), `ae-mcp-preview-${randomUUID()}.png`);
+      const r = spawnSync(
+        ff,
+        [
+          "-y",
+          "-loglevel",
+          "error",
+          "-ss",
+          String(Math.max(0, t - from)),
+          "-i",
+          p.outputPath,
+          "-frames:v",
+          "1",
+          "-vf",
+          `scale=${width}:-2`,
+          png,
+        ],
+        { timeout: 30000 },
+      );
+      if (r.status === 0 && fs.existsSync(png)) {
+        content.push({ type: "text", text: `t=${t.toFixed(3)}s` });
+        content.push({
+          type: "image",
+          data: fs.readFileSync(png).toString("base64"),
+          mimeType: "image/png",
+        });
+      }
+      try {
+        fs.unlinkSync(png);
+      } catch {
+        /* not written */
+      }
+    }
+    return { content };
   },
 );
 

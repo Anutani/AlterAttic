@@ -25,4 +25,17 @@ Window > mcp-bridge-auto.jsx (keep the panel open while working).
 
 Record every change we make to upstream code here, so future upstream updates can be merged.
 
-- (none yet)
+- **see-frame shows the real camera** (`src/scripts/mcp-bridge-auto.jsx`): the downscale step nested the
+  comp with collapse transformations on, so a 3D comp rendered through the temp comp's default camera
+  and every frame looked like the unmoving start. It now nests without collapsing.
+- **AE outside Program Files / AE 2027+**: `aerenderCandidates` (`src/lib/bridge-core.ts`) and
+  `install-bridge.js` now look for 2021 to 2028 under C:/D:/E: `Program Files\Adobe`, `D:\Software`,
+  `D:\Adobe` and `E:\Software`, and honour `AE_INSTALL_DIR`. On Windows, the installer no longer gives up when
+  the install folder isn't found, since it installs per user under %APPDATA% anyway.
+- **New tool `build-shot-list`** (`src/lib/shot-list.ts`): a beat-timed shot list becomes a master comp
+  with scenes (existing comps or placeholders), hidden-cut transitions (dive, whip, collapse, flash,
+  cut), a carrier element, beat markers and the song.
+- **New tool `preview-render`**: aerender to MP4, wait, then grab frames with ffmpeg (including
+  2 frames either side of each cut) and return them as images. What you see is the final render.
+- The bridge version is now `1.13.0-alterattic.1`. Re-run `npm run install-bridge` and reopen the panel after
+  updating.

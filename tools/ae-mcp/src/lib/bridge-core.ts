@@ -173,19 +173,32 @@ export function aerenderCandidates(
   platform: NodeJS.Platform = process.platform,
   env: NodeJS.ProcessEnv = process.env,
 ): string[] {
-  const years = ["2026", "2025", "2024", "2023", "2022", "2021"];
+  const years = ["2028", "2027", "2026", "2025", "2024", "2023", "2022", "2021"];
   const candidates: string[] = [];
+  // AE_INSTALL_DIR: the "Adobe After Effects <year>" folder itself, for installs
+  // outside the default location (e.g. D:\Software\Adobe After Effects 2027).
+  const installDir = env.AE_INSTALL_DIR;
   if (platform === "win32") {
-    const pf = env.ProgramFiles || "C:\\Program Files";
+    if (installDir) candidates.push(path.win32.join(installDir, "Support Files", "aerender.exe"));
+    const roots = [
+      path.win32.join(env.ProgramFiles || "C:\\Program Files", "Adobe"),
+      "D:\\Program Files\\Adobe",
+      "D:\\Software",
+      "D:\\Adobe",
+      "E:\\Program Files\\Adobe",
+      "E:\\Software",
+    ];
     for (const y of years)
-      candidates.push(
-        path.join(pf, "Adobe", `Adobe After Effects ${y}`, "Support Files", "aerender.exe"),
-      );
+      for (const r of roots)
+        candidates.push(
+          path.win32.join(r, `Adobe After Effects ${y}`, "Support Files", "aerender.exe"),
+        );
   } else {
+    if (installDir) candidates.push(path.posix.join(installDir, "aerender"));
     for (const y of years)
-      candidates.push(path.join("/Applications", `Adobe After Effects ${y}`, "aerender"));
+      candidates.push(path.posix.join("/Applications", `Adobe After Effects ${y}`, "aerender"));
   }
-  return candidates;
+  return Array.from(new Set(candidates));
 }
 
 /**
