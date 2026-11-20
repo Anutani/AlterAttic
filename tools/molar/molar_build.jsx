@@ -28,6 +28,8 @@ function buildMolar(over) {
             every: "STEADY HANDS", starts: "EVERY SMILE", oneMolar: "not just a dentist.",
             built: "BUILT.", strong: "STRONG.", ready: "DOCTOR."
         },
+        suckEnd: 5.75,                  // S4-S5 local time when everything has collapsed into the carrier
+                                        // (13.75 s: the song's near-silent gap is 13.75-13.95, drop at 14.0)
         audioPath: null,                // e.g. "C:/.../placeholder_120bpm.wav"
         savePath: null,                 // e.g. "C:/.../Molar_Reel_v1.aep"
         compName: "MOLAR_Master"
@@ -248,7 +250,7 @@ function buildMolar(over) {
     var s45 = mkComp("S4-S5 Revision + One more mock", 6);
     var bg45 = solid(s45, CFG.ink, "BG Ink");
     var rush = s45.layers.addNull(); rush.name = "RUSH"; pivot(rush, CX, CY);
-    function kid(l) { l.parent = rush; if (l.outPoint > 5.5) l.outPoint = 5.5; return l; }
+    function kid(l) { l.parent = rush; if (l.outPoint > CFG.suckEnd) l.outPoint = CFG.suckEnd; return l; }
     kid(slam(txt(s45, CFG.words.revision, CFG.fontBig, 120, CFG.enamel, CX, 600), 0));
     var nums = ["1", "2", "3"];
     var rings = shape(s45, "RINGS"); kid(rings);
@@ -256,7 +258,7 @@ function buildMolar(over) {
         var tn = 0.5 + 0.5 * nI;
         var nl = kid(txt(s45, nums[nI], CFG.fontBig, 680, CFG.graphite, CX, CY));
         nl.moveToEnd(); bg45.moveToEnd(); // numerals sit just above the BG, behind everything
-        slam(nl, tn, nI < 2 ? tn + 0.5 : 5.5);
+        slam(nl, tn, nI < 2 ? tn + 0.5 : CFG.suckEnd);
         var rg = ring(rings, CX, CY, 130 + 40 * nI, CFG.mint, 6);
         K(rg.trim.property("ADBE Vector Trim End"), [[0, 0, "h", "h"], [tn, 0, 0, 0], [tn + 0.3, 100, 85, 75]]);
     }
@@ -272,7 +274,7 @@ function buildMolar(over) {
     }
     var mock = kid(txt(s45, CFG.words.mock, CFG.fontMono, 72, CFG.enamel, CX, 1450));
     mock.inPoint = 4.0; typeOn(mock, CFG.words.mock, 4.0, 4.0 + 22 * F);
-    K(scl(rush), [[4.0, S(100), 0, 75], [5.0, S(140), 75, 92], [5.0 + 14 * F, S(0), 0, 0]]);
+    K(scl(rush), [[4.0, S(100), 0, 75], [CFG.suckEnd - 0.5, S(140), 75, 92], [CFG.suckEnd - F, S(0), 0, 0]]);
 
     // ---------- S6 - S8: the molar builds, one molar, stabs (14-28 s, local 0-14) ----------
     var s68 = mkComp("S6-S8 Molar", 14);
@@ -397,7 +399,7 @@ function buildMolar(over) {
     pk.push([240 * F, [CX, CY + 1000], "h", 0]); pk.push([246 * F, [CX, CY], 85, "h"]);
     dk.push([240 * F, S(90), "h", "h"]);
     // S5 tension: d 90 -> 60 over f405-419
-    dk.push([405 * F, S(90), "h", 0]); dk.push([419 * F, S(60), 0, "h"]);
+    dk.push([8.0 + CFG.suckEnd, S(90), "h", 0]); dk.push([8.0 + CFG.suckEnd + 0.2, S(60), 0, "h"]);
     // S6: pen tip along the crown outline, f420-480, then settle into the pulp by f590
     var CL = polyLen(CROWN), total2 = CL[CL.length - 1];
     for (var v = 0; v < CROWN.length; v++) pk.push([14.0 + 2.0 * CL[v] / total2, CROWN[v], 0, 0]);
