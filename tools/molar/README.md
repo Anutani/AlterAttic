@@ -1,7 +1,7 @@
 # Molar launch reel (After Effects build)
 
 - `molar_build.jsx` builds the whole 30 s 9:16 reel from the director's shot list
-  (molar-launch-briefs.md, section 4): 9 shots on a 120 BPM grid, the mint carrier bubble,
+  (molar-launch-briefs.md, section 4, dentist revision): 9 shots on a 120 BPM grid, the mint carrier bubble,
   every join (dive, flash and invert, whip, collapse, burst, collapse into the logo O, and the loop),
   beat markers ("BAR n" on downbeats), grain and vignette.
 - `placeholder_120bpm.wav` is a timing-only click track (drop at 14 s, silence at 13.5 s, stabs at 26/26.5/27 s,

@@ -17,13 +17,16 @@ function buildMolar(over) {
         fontMono: "IBMPlexMono-Regular",
         fontSerif: "InstrumentSerif-Italic",
         brand: "MOLAR",                 // the O (2nd letter) is replaced by the carrier bubble
-        tagline: "NEET MDS PREP \u00B7 STARTS NOW",
+        logoWidth: 700,                 // wordmark width in px (kept small so the brand stays light)
+        signoff: "FOR EVERY DENTIST",   // mono line above the wordmark
+        signoffY: 820,
+        tagline: "",                    // optional mono line under the wordmark (y=1120); "" = none
         words: {
             q: "Q.117 / 240", questions: "240 QUESTIONS.", plus: "+4", minus: "\u22121",
             clinic: "CLINIC BY DAY", books: "BOOKS BY NIGHT", clock: "02:47 AM",
             revision: "REVISION", thoda: "THODA AUR", mock: "ONE MORE MOCK",
-            every: "EVERY RANK", starts: "STARTS WITH", oneMolar: "one molar.",
-            built: "BUILT.", strong: "STRONG.", ready: "READY."
+            every: "STEADY HANDS", starts: "EVERY SMILE", oneMolar: "not just a dentist.",
+            built: "BUILT.", strong: "STRONG.", ready: "DOCTOR."
         },
         audioPath: null,                // e.g. "C:/.../placeholder_120bpm.wav"
         savePath: null,                 // e.g. "C:/.../Molar_Reel_v1.aep"
@@ -172,7 +175,7 @@ function buildMolar(over) {
     var tR = txt(s9, rest, CFG.fontBig, size, CFG.enamel, 0, 0, "l");
     var rM = tM.sourceRectAtTime(0, false), rO = tO.sourceRectAtTime(0, false), rR = tR.sourceRectAtTime(0, false);
     var gap = size * 0.04, total = rM.width + gap + rO.width + gap + rR.width;
-    var k = 900 / total; size = Math.round(size * k);
+    var k = CFG.logoWidth / total; size = Math.round(size * k);
     tM.remove(); tO.remove(); tR.remove();
     tM = txt(s9, first, CFG.fontBig, size, CFG.enamel, 0, 0, "l");
     tO = txt(s9, "O", CFG.fontBig, size, CFG.enamel, 0, 0, "l");
@@ -185,9 +188,10 @@ function buildMolar(over) {
     var DO = Math.round(Math.min(rO.width, rO.height) * 0.92);
     tO.remove();                                    // the carrier IS the O
     pos(tR).setValue([x0 + rM.width + gap + rO.width + gap, CY]);
-    var tag = txt(s9, CFG.tagline, CFG.fontMono, 44, CFG.enamel, CX, 1120);
     var logoNull = s9.layers.addNull(); logoNull.name = "LOGO SETTLE"; pivot(logoNull, CX, CY);
-    tM.parent = logoNull; tR.parent = logoNull; tag.parent = logoNull;
+    tM.parent = logoNull; tR.parent = logoNull;
+    if (CFG.signoff) { var so = txt(s9, CFG.signoff, CFG.fontMono, 56, CFG.enamel, CX, CFG.signoffY); so.parent = logoNull; }
+    if (CFG.tagline) { var tag = txt(s9, CFG.tagline, CFG.fontMono, 44, CFG.enamel, CX, 1120); tag.parent = logoNull; }
     K(scl(logoNull), [[0, S(101), 0, 0], [10 * F, S(100), 85, 75]]);
     log.push("L-O = " + Math.round(LO[0]) + "," + Math.round(LO[1]) + "  d=" + DO + "  brand font size " + size);
 
