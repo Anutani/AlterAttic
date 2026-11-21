@@ -441,6 +441,8 @@ body.lock{overflow:hidden}
 .wa:hover{transform:translateY(-3px)}
 .wa svg{width:26px;height:26px}
 
+/* SALES VIDEOS ON/OFF: hidden for now (2026-11-21). Delete the next line to bring the section and its menu links back. */
+[data-sales]{display:none!important}
 /* case study */
 .case{position:relative;padding:var(--sec) 0;overflow:visible;isolation:isolate}
 .case::before{content:"";position:absolute;right:-10%;top:10%;width:min(900px,90vw);height:600px;border-radius:50%;background:radial-gradient(closest-side,rgb(var(--orr) / .1),transparent);z-index:-1}
@@ -476,13 +478,13 @@ body.lock{overflow:hidden}
 <header class="top" id="nav">
   <div class="wrap">
     <a class="logo" href="#top">alterattic<i>.</i></a>
-    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#case">Sales Videos</a><span></span><a href="#contact">Contact</a></nav>
+    <nav class="navp" aria-label="Main"><a href="#work">My Work</a><span></span><a href="#case" data-sales="">Sales Videos</a><span data-sales=""></span><a href="#contact">Contact</a></nav>
     <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="Mobile">
-  <a href="#work"><small>01</small>My Work</a><a href="#case"><small>02</small>Sales Videos</a><a href="#contact"><small>03</small>Contact</a>
+  <a href="#work"><small>01</small>My Work</a><a href="#case" data-sales=""><small>02</small>Sales Videos</a><a href="#contact"><small>03</small>Contact</a>
   <a class="cta-s" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20book%20a%2015-minute%20call%20about%20video%20editing." data-wa="call" target="_blank" rel="noopener">Book a call →</a>
 </nav>
 
@@ -524,13 +526,13 @@ body.lock{overflow:hidden}
 </section>
 
 <!-- VIDEOS THAT SELL -->
-<section class="case" id="case">
+<section class="case" id="case" data-sales="">
   <div class="wrap">
     <span class="ey reveal">Videos that sell · Freight brokerage</span>
     <h2 class="reveal">Not every video needs views. <i>Some need sales.</i></h2>
     <div class="cg">
       <div class="reveal">
-        <div class="gb"><button class="player" id="case-v" type="button" aria-label="Play the freight brokerage video"><img alt="" loading="lazy" src="https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span></button></div>
+        <div class="gb"><button class="player" id="case-v" type="button" aria-label="Play the freight brokerage video"><img alt="" loading="lazy" src="https://i.ytimg.com/vi/gI7AGaFbRDE/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/gI7AGaFbRDE/hqdefault.jpg'"><span class="pc"><svg><use href="#play"></use></svg></span></button></div>
         <div class="cstats"><div><b>11:53</b><span>Long-form lesson</span></div><div><b>3,000+</b><span>Views from a niche audience</span></div><div><b>1 job</b><span>Turn viewers into students</span></div></div>
       </div>
       <div class="ctext reveal">
@@ -581,7 +583,7 @@ body.lock{overflow:hidden}
     </div>
     <div class="fbar">
       <a class="logo" href="#top">alterattic<i>.</i></a>
-      <nav><a href="#work">Work</a><a href="#case">Sales videos</a><a href="https://x.com/alterattic" target="_blank" rel="me noopener">X @alterattic ↗</a><a href="#top">Back to top ↑</a></nav>
+      <nav><a href="#work">Work</a><a href="#case" data-sales="">Sales videos</a><a href="https://x.com/alterattic" target="_blank" rel="me noopener">X @alterattic ↗</a><a href="#top">Back to top ↑</a></nav>
       <span>© <span id="yr">2026</span> Anutani Pegu · Assam, India</span>
     </div>
   </div>
@@ -589,7 +591,7 @@ body.lock{overflow:hidden}
 
 <nav class="bnav" aria-label="Quick links">
   <a href="#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg>Work</a>
-  <a href="#case"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 14 4-4 4 4 5-6"></path></svg>Sales</a>
+  <a href="#case" data-sales=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 14 4-4 4 4 5-6"></path></svg>Sales</a>
   <a href="#reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Reviews</a>
   <a class="wa2" href="https://wa.me/916900998476?text=Hi%20Anutani%2C%20I'd%20like%20to%20talk%20about%20a%20video%20project." data-wa="msg" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"></path></svg>Chat</a>
 </nav>
